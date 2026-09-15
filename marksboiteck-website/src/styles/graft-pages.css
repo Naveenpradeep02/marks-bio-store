@@ -1,0 +1,187 @@
+/* Shared, page-scoped layout for the regenerative product pages. */
+/* Preserve these pages' existing hidden event overlay. */
+:is(.allograft-page, .xenograft-page, .tissue-page) .event-box {
+  display: none;
+}
+
+.graft-page {
+  background: #0f0f0f;
+  color: #fff;
+  font-family: "Geist", Arial, sans-serif;
+  padding-bottom: 24px;
+}
+
+.graft-page *,
+.graft-page *::before,
+.graft-page *::after {
+  box-sizing: border-box;
+}
+
+.graft-page :is(h1, h2, h3, p, ul) {
+  margin: 0;
+  padding: 0;
+}
+.graft-page :is(h1, h2, h3) {
+  font-family: "Geist", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.graft-page h1 {
+  font-size: clamp(36px, 4.8vw, 64px);
+  line-height: 1.12;
+  color: #fff;
+}
+.graft-page :is(h2, h3) {
+  font-size: clamp(24px, 2.5vw, 34px);
+  line-height: 1.25;
+  color: #c81616;
+  margin-bottom: 20px;
+}
+.graft-page :is(p, li) {
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: #fff;
+  letter-spacing: normal;
+}
+.graft-page p + p {
+  margin-top: 16px;
+}
+.graft-page ul {
+  padding-left: 22px;
+}
+.graft-page p + ul {
+  margin-top: 20px;
+}
+.graft-page ul li {
+  list-style: disc;
+  padding-left: 4px;
+}
+.graft-page li + li {
+  margin-top: 8px;
+}
+.graft-page li::marker {
+  color: currentColor;
+}
+
+.graft-page .graft-banner {
+  display: grid;
+  place-items: center;
+  min-height: clamp(320px, 42vw, 520px);
+  padding: 72px 40px;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+.graft-page .graft-banner > div {
+  width: 100%;
+  max-width: 960px;
+}
+.graft-page .graft-banner p {
+  max-width: 64ch;
+  margin-inline: auto;
+  color: #fff;
+}
+.graft-page .graft-banner h1 + p {
+  margin-top: 24px;
+  font-size: 19px;
+}
+.graft-page .graft-eyebrow {
+  margin-bottom: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.graft-page .graft-banner .graft-banner-note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.graft-page .graft-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  width: min(1200px, calc(100% - 80px));
+  height: auto;
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 80px) 0;
+  text-align: left;
+}
+.graft-page .graft-row + .graft-row {
+  border-top: 1px solid #2a2a2a;
+}
+.graft-page .graft-row > * {
+  min-width: 0;
+}
+.graft-page .graft-media {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+.graft-page .graft-media img {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+.graft-page .graft-copy {
+  padding: 0;
+  text-align: left;
+}
+.graft-page .graft-copy-group + .graft-copy-group {
+  margin-top: 32px;
+}
+.graft-page .graft-copy-group > p {
+  margin-top: 20px;
+}
+.graft-page section {
+  scroll-margin-top: 110px;
+}
+
+@media (max-width: 900px) {
+  .graft-page .graft-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .graft-page .graft-media {
+    grid-row: 1;
+  }
+  .graft-page .graft-media img {
+    max-width: 480px;
+    max-height: 440px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Override the site's blanket mobile section padding. */
+  .graft-page .graft-banner {
+    padding: 56px 20px !important;
+    min-height: 320px;
+  }
+  .graft-page .graft-row,
+  .graft-page .tissue-intro {
+    padding-block: 40px !important;
+  }
+  .graft-page .graft-row {
+    width: calc(100% - 40px);
+  }
+  .graft-page .tissue-content .graft-row {
+    padding: 0 !important;
+  }
+  .graft-page :is(p, li) {
+    font-size: 16px;
+  }
+  .graft-page .graft-banner .graft-eyebrow {
+    font-size: 13px !important;
+  }
+}

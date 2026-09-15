@@ -1,0 +1,561 @@
+#ev-implant-technology.evt-section {
+  --evt-red: #ff293b;
+  position: relative;
+  isolation: isolate;
+  background: #07090b;
+  color: #f6f6f6;
+  overflow: hidden;
+  scroll-margin-top: 90px;
+  font-family: "Inter", Arial, sans-serif;
+}
+#ev-implant-technology .evt-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, #05070922, #05070944),
+    url("/assets/last-section/1%20(1).png") center / cover no-repeat;
+  opacity: 0;
+  transition: opacity 1.8s ease;
+}
+#ev-implant-technology.evt-visible .evt-background {
+  opacity: 1;
+}
+#ev-implant-technology .evt-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  aspect-ratio: 1600 / 900;
+  margin: auto;
+  container-type: inline-size;
+}
+#ev-implant-technology .evt-header {
+  position: absolute;
+  left: 0;
+  top: 4.8%;
+  width: 100%;
+  text-align: center;
+  --delay: 0.1s;
+}
+#ev-implant-technology .evt-eyebrow {
+  margin: 0 0 1cqw;
+  color: #92969b;
+  font-size: 0.73cqw;
+  letter-spacing: 0.42em;
+}
+#ev-implant-technology .evt-header h2 {
+  margin: 0;
+  color: #f8f8f8;
+  font-size: 4.35cqw;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+#ev-implant-technology .evt-header h2 > span {
+  color: var(--evt-red);
+}
+#ev-implant-technology .evt-header h2 strong {
+  display: block;
+  font-size: 3.23cqw;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  line-height: 1.1;
+  margin-top: 0.15cqw;
+}
+#ev-implant-technology .evt-intro {
+  color: #e9e9eb;
+  font-size: 1.18cqw;
+  line-height: 1.35;
+  margin: 0.8cqw 0 0;
+}
+#ev-implant-technology .evt-product {
+  position: absolute;
+  left: 42%;
+  top: 13%;
+  width: 22%;
+  height: 70%;
+  --delay: 0.3s;
+}
+#ev-implant-technology .evt-product img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  filter: drop-shadow(0 15px 16px #0008);
+  animation: evt-float 7s ease-in-out infinite;
+  animation-play-state: paused;
+}
+#ev-implant-technology .evt-connectors {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#ev-implant-technology .evt-connector {
+  stroke: #a5a6a8;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0.65;
+  transition:
+    opacity 0.3s,
+    stroke 0.3s;
+}
+#ev-implant-technology.evt-visible .evt-connector {
+  animation: evt-draw 1.4s ease var(--delay) forwards;
+}
+#ev-implant-technology .evt-target {
+  fill: var(--evt-red);
+  animation: evt-pulse 4s ease-in-out infinite;
+  animation-play-state: paused;
+}
+#ev-implant-technology .evt-target-halo {
+  fill: #ff293b;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.4s;
+}
+#ev-implant-technology .evt-connectors .is-active .evt-connector {
+  opacity: 1;
+  stroke: #f4f4f4;
+}
+#ev-implant-technology .evt-connectors .is-active .evt-target-halo {
+  opacity: 0.28;
+}
+#ev-implant-technology .evt-feature {
+  position: absolute;
+  top: calc(29% + var(--row) * 20%);
+  width: 26%;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6cqw;
+}
+#ev-implant-technology .evt-left {
+  left: 13.5%;
+}
+#ev-implant-technology .evt-right {
+  left: 66%;
+  top: calc(26% + var(--row) * 21%);
+  width: 29%;
+}
+#ev-implant-technology .evt-feature-copy {
+  flex: 1;
+  min-width: 0;
+}
+#ev-implant-technology .evt-feature summary {
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+}
+#ev-implant-technology .evt-feature summary::-webkit-details-marker {
+  display: none;
+}
+#ev-implant-technology .evt-feature summary:focus-visible,
+#ev-implant-technology .evt-explore:focus-visible {
+  outline: 2px solid var(--evt-red);
+  outline-offset: 6px;
+}
+#ev-implant-technology .evt-number {
+  color: var(--evt-red);
+  font-size: 1.32cqw;
+  font-weight: 700;
+  display: flex;
+  gap: 1.8cqw;
+  align-items: center;
+  line-height: 1.1;
+  margin-bottom: 0.35cqw;
+}
+#ev-implant-technology .evt-number i {
+  width: 3.4cqw;
+  height: 1px;
+  background: var(--evt-red);
+}
+#ev-implant-technology .evt-feature h3 {
+  color: #e7e7eb;
+  text-transform: uppercase;
+  font-size: 0.92cqw;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  margin: 0;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+#ev-implant-technology .evt-feature.is-active h3 {
+  color: #fff;
+}
+#ev-implant-technology .evt-feature ul {
+  padding: 0 0 0 1.1em;
+  margin: 0.6cqw 0 0;
+  color: #b3b7bd;
+  font-size: 0.9cqw;
+  line-height: 1.32;
+}
+#ev-implant-technology .evt-feature li {
+  padding-left: 0.1em;
+  margin-bottom: 0.15em;
+}
+#ev-implant-technology .evt-feature li::marker {
+  color: var(--evt-red);
+}
+#ev-implant-technology .evt-detail {
+  flex: 0 0 7.8cqw;
+  width: 7.8cqw;
+  height: 7.8cqw;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: -1.5cqw;
+  background: #090b0c;
+  border: 1px solid #c0c0c4;
+  transition:
+    transform 0.4s,
+    border-color 0.4s;
+}
+#ev-implant-technology .evt-detail img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+#ev-implant-technology .evt-right .evt-detail {
+  order: -1;
+  margin-top: 0;
+}
+#ev-implant-technology .evt-feature.is-active .evt-detail {
+  transform: scale(1.05);
+  border-color: #fff;
+}
+#ev-implant-technology .evt-chevron {
+  display: none;
+}
+#ev-implant-technology .evt-explore {
+  position: absolute;
+  right: 3.5%;
+  top: 82%;
+  color: #fff;
+  border: 1px solid var(--evt-red);
+  border-radius: 40px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.88cqw;
+  font-weight: 500;
+  padding: 1cqw 1.7cqw;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  --delay: 1.8s;
+  transition: background 0.3s;
+}
+#ev-implant-technology .evt-explore:hover {
+  background: #ff293b20;
+}
+#ev-implant-technology .evt-explore svg {
+  transition: transform 0.3s;
+}
+#ev-implant-technology .evt-explore:hover svg {
+  transform: translateX(4px);
+}
+#ev-implant-technology .evt-reveal {
+  opacity: 0;
+  transform: translateY(15px);
+}
+#ev-implant-technology .evt-header {
+  transform: translateY(-15px);
+}
+#ev-implant-technology .evt-product {
+  transform: translateY(20px) scale(0.96);
+}
+#ev-implant-technology .evt-left {
+  transform: translateX(-16px);
+}
+#ev-implant-technology .evt-right {
+  transform: translateX(16px);
+}
+#ev-implant-technology.evt-visible .evt-reveal {
+  animation: evt-reveal 1s cubic-bezier(0.2, 0.7, 0.3, 1) var(--delay, 0s)
+    forwards;
+}
+#ev-implant-technology.evt-visible .evt-detail img {
+  animation: evt-detail-in 1.2s ease var(--delay) both;
+}
+#ev-implant-technology.evt-in-view .evt-product img,
+#ev-implant-technology.evt-in-view .evt-target {
+  animation-play-state: running;
+}
+@keyframes evt-reveal {
+  to {
+    opacity: 1;
+    transform: translate(0) scale(1);
+  }
+}
+@keyframes evt-detail-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes evt-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes evt-float {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes evt-pulse {
+  50% {
+    opacity: 0.6;
+  }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  #ev-implant-technology .evt-feature h3 {
+    font-size: 11px;
+  }
+  #ev-implant-technology .evt-feature ul {
+    font-size: 11px;
+  }
+  #ev-implant-technology .evt-left {
+    left: 8%;
+    width: 31.5%;
+  }
+  #ev-implant-technology .evt-right {
+    width: 30%;
+    gap: 1cqw;
+  }
+}
+@media (min-width: 901px) {
+  #ev-implant-technology .evt-feature details::details-content {
+    content-visibility: visible;
+  }
+  #ev-implant-technology .evt-feature details > ul {
+    display: block;
+  }
+}
+@media (max-width: 900px) {
+  #ev-implant-technology .evt-background {
+    background-position: 38% top;
+    background-size: auto 900px;
+    background-repeat: no-repeat;
+  }
+  #ev-implant-technology .evt-stage {
+    aspect-ratio: auto;
+    padding: 54px 24px 32px;
+    display: flex;
+    flex-direction: column;
+  }
+  #ev-implant-technology .evt-header {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+  #ev-implant-technology .evt-eyebrow {
+    font-size: 10px;
+    margin-bottom: 16px;
+  }
+  #ev-implant-technology .evt-header h2 {
+    font-size: clamp(36px, 8.5vw, 70px);
+  }
+  #ev-implant-technology .evt-header h2 strong {
+    font-size: clamp(27px, 6.2vw, 52px);
+    letter-spacing: 0.15em;
+    margin-top: 4px;
+  }
+  #ev-implant-technology .evt-intro {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 16px;
+    max-width: 400px;
+  }
+  #ev-implant-technology .evt-desktop-break {
+    display: none;
+  }
+  #ev-implant-technology .evt-scroll,
+  #ev-implant-technology .evt-connectors {
+    display: none;
+  }
+  #ev-implant-technology .evt-product {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 240px;
+    height: 450px;
+    margin: 52px auto 20px;
+    flex-shrink: 0;
+  }
+  #ev-implant-technology .evt-features {
+    order: 2;
+    display: grid;
+    gap: 0;
+  }
+  #ev-implant-technology .evt-feature {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    gap: 18px;
+    padding: 23px 0;
+    border-bottom: 1px solid #ffffff25;
+  }
+  #ev-implant-technology .evt-feature-copy {
+    order: 1;
+  }
+  #ev-implant-technology .evt-detail,
+  #ev-implant-technology .evt-right .evt-detail {
+    order: 0;
+    flex-basis: 76px;
+    width: 76px;
+    height: 76px;
+    margin-top: 0;
+  }
+  #ev-implant-technology .evt-number {
+    font-size: 17px;
+    gap: 15px;
+    margin-bottom: 8px;
+  }
+  #ev-implant-technology .evt-number i {
+    width: 35px;
+  }
+  #ev-implant-technology .evt-feature h3 {
+    font-size: 12px;
+    line-height: 1.5;
+    padding-right: 20px;
+  }
+  #ev-implant-technology .evt-feature ul {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+  #ev-implant-technology .evt-chevron {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #969ba2;
+    transition: transform 0.3s;
+  }
+  #ev-implant-technology details[open] .evt-chevron {
+    transform: rotate(180deg);
+  }
+  #ev-implant-technology .evt-explore {
+    position: relative;
+    right: auto;
+    top: auto;
+    align-self: center;
+    order: 3;
+    font-size: 12px;
+    padding: 15px 25px;
+    gap: 22px;
+    margin-top: 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #ev-implant-technology.evt-section *,
+  #ev-implant-technology.evt-section *::before,
+  #ev-implant-technology.evt-section *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  #ev-implant-technology .evt-reveal,
+  #ev-implant-technology .evt-background {
+    opacity: 1;
+    transform: none;
+  }
+  #ev-implant-technology .evt-connector {
+    stroke-dashoffset: 0;
+  }
+}
+/* Keep the site's global element styles from changing this technical layout. */
+#ev-implant-technology .evt-stage {
+  box-sizing: border-box;
+}
+#ev-implant-technology h2,
+#ev-implant-technology h3,
+#ev-implant-technology p,
+#ev-implant-technology li,
+#ev-implant-technology a {
+  font-family: inherit;
+}
+#ev-implant-technology .evt-feature li {
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  font-weight: 400;
+  list-style: disc;
+}
+#ev-implant-technology .evt-header h2 {
+  font-family: Arial, sans-serif;
+}
+@media (max-width: 900px) {
+  #ev-implant-technology.evt-section {
+    padding: 0 !important;
+  }
+  #ev-implant-technology .evt-header h2 {
+    font-size: clamp(36px, 8.5vw, 70px) !important;
+    line-height: 1.02 !important;
+  }
+  #ev-implant-technology .evt-feature h3 {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+  }
+  #ev-implant-technology .evt-eyebrow {
+    font-size: 10px !important;
+  }
+  #ev-implant-technology .evt-intro {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+  }
+}
+#ev-implant-technology .evt-feature h3 {
+  padding: 0;
+}
+#ev-implant-technology .evt-feature li {
+  margin: 0 0 0.15em;
+  padding: 0 0 0 0.1em;
+}
+@media (min-width: 901px) {
+  #ev-implant-technology .evt-left {
+    top: calc(30% + var(--row) * 20%);
+  }
+  #ev-implant-technology .evt-left .evt-feature-copy {
+    transform: translateX(-0.5cqw);
+  }
+}
+@media (min-width: 1201px) {
+  #ev-implant-technology .evt-left {
+    left: 11.5%;
+    width: 28%;
+  }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  #ev-implant-technology .evt-left {
+    left: 6%;
+    width: 33.5%;
+  }
+}
+@media (min-width: 901px) and (max-width: 1200px) {
+  #ev-implant-technology .evt-left:nth-child(3) {
+    top: 52.5%;
+  }
+}
+/* Rotation directions follow the implant's existing subtle floating motion. */
+#ev-implant-technology .evt-rotation-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: evt-float 7s ease-in-out infinite;
+  animation-play-state: paused;
+}
+#ev-implant-technology.evt-in-view .evt-rotation-arrows {
+  animation-play-state: running;
+}

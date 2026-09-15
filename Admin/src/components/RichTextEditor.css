@@ -1,0 +1,82 @@
+.rte-wrapper {
+  border: 1px solid #d5dae0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.rte-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px;
+  background: #f8f9fb;
+  border-bottom: 1px solid #d5dae0;
+}
+
+.rte-toolbar button {
+  background: #fff;
+  border: 1px solid #d5dae0;
+  border-radius: 4px;
+  padding: 4px 9px;
+  font-size: 0.8rem;
+  color: #1a1f2b;
+  cursor: pointer;
+}
+
+.rte-toolbar button:hover {
+  background: #eef1f5;
+}
+
+.rte-toolbar button.active {
+  background: #1a1f2b;
+  color: #fff;
+  border-color: #1a1f2b;
+}
+
+.rte-toolbar-sep {
+  width: 1px;
+  background: #d5dae0;
+  margin: 2px 4px;
+}
+
+.rte-content {
+  min-height: 160px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  outline: none;
+}
+
+.rte-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #9aa3b0;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.rte-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 8px 0;
+}
+
+.rte-content table td,
+.rte-content table th {
+  border: 1px solid #d5dae0;
+  padding: 6px 8px;
+  min-width: 60px;
+}
+
+.rte-content table th {
+  background: #f8f9fb;
+  font-weight: 600;
+}
+
+.rte-content ul,
+.rte-content ol {
+  padding-left: 1.4rem;
+}

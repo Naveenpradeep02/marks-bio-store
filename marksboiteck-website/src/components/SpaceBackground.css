@@ -1,0 +1,287 @@
+#hero.straumann-hero {
+  isolation: isolate;
+  background: #020813;
+}
+.space-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --space-x: 0px;
+  --space-y: 0px;
+  --space-scroll: 0px;
+}
+.space-background-image {
+  position: absolute;
+  inset: -90px -30px;
+  width: calc(100% + 60px);
+  height: calc(100% + 180px);
+  max-width: none;
+  object-fit: cover;
+  object-position: center 60%;
+  transform: translate3d(
+    calc(var(--space-x) * -1),
+    calc(var(--space-scroll) + var(--space-y) * -1),
+    0
+  );
+  will-change: transform;
+}
+.space-background-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, #020610bd 0%, #02061070 42%, #02061010 75%),
+    linear-gradient(0deg, #020610a6 0%, transparent 25%, #02061025 100%);
+}
+.space-background-stars {
+  position: absolute;
+  inset: -25px;
+  transform: translate3d(var(--space-x), var(--space-y), 0);
+  will-change: transform;
+}
+
+/* Celestial Star Categories & Blinking Animations */
+.space-star {
+  position: absolute;
+  width: var(--star-size);
+  height: var(--star-size);
+  border-radius: 50%;
+  background: #ffffff;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.space-star.star-micro {
+  background: #e0f2fe;
+  box-shadow: 0 0 4px rgba(224, 242, 254, 0.8);
+  animation: starBlinkFast var(--star-duration) ease-in-out var(--star-delay)
+    infinite alternate;
+}
+
+.space-star.star-med {
+  background: #f0f9ff;
+  box-shadow: 0 0 6px rgba(186, 230, 253, 0.85);
+  animation: starBlinkSlow var(--star-duration) ease-in-out var(--star-delay)
+    infinite alternate;
+}
+
+.space-star.star-bright {
+  background: #ffffff;
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.9),
+    0 0 4px #38bdf8;
+  animation: starBlinkFlash var(--star-duration) ease-in-out var(--star-delay)
+    infinite alternate;
+}
+
+.space-star.star-flare {
+  background: #ffffff;
+  box-shadow:
+    0 0 14px rgba(255, 255, 255, 1),
+    0 0 6px #7dd3fc;
+  animation: starBlinkFlare var(--star-duration) ease-in-out var(--star-delay)
+    infinite alternate;
+}
+
+@keyframes starBlinkFast {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.65);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.3);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+  }
+}
+
+@keyframes starBlinkSlow {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+    box-shadow: 0 0 8px rgba(186, 230, 253, 0.95);
+  }
+}
+
+@keyframes starBlinkFlash {
+  0%,
+  25%,
+  75%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.75);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+    box-shadow:
+      0 0 12px #ffffff,
+      0 0 4px #7dd3fc;
+  }
+}
+
+@keyframes starBlinkFlare {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.4);
+    box-shadow:
+      0 0 18px rgba(255, 255, 255, 1),
+      0 0 6px #38bdf8;
+  }
+}
+
+.space-background-atmosphere {
+  position: absolute;
+  inset: 25% -15% -35%;
+  background: radial-gradient(ellipse at 65% 70%, #087fe323, transparent 60%);
+  animation: space-atmosphere 12s ease-in-out infinite alternate;
+}
+#hero .straumann-hero-content {
+  text-shadow: 0 2px 22px #0008;
+}
+@keyframes space-atmosphere {
+  from {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+.space-background[data-paused="true"] * {
+  animation-play-state: paused;
+}
+@media (max-width: 767px) {
+  .space-background-image {
+    object-position: 60% center;
+  }
+  .space-background-shade {
+    background: linear-gradient(180deg, #02061090, #02061035 60%, #020610a6);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-background *,
+  .space-background-image,
+  .space-background-stars {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+  .space-background-stars span {
+    opacity: 0.5;
+  }
+}
+/* Separate star depths move at different rates for pointer and scroll parallax. */
+.space-background .space-stars-layer-0 {
+  opacity: 0.5;
+  transform: translate3d(
+    calc(var(--space-x) * 0.4),
+    calc(var(--space-y) * 0.4 + var(--space-scroll) * 0.2),
+    0
+  );
+}
+.space-background .space-stars-layer-1 {
+  opacity: 0.75;
+  transform: translate3d(
+    calc(var(--space-x) * 1.2),
+    calc(var(--space-y) * 1.2 + var(--space-scroll) * -0.3),
+    0
+  );
+}
+.space-background .space-stars-layer-2 {
+  inset: -65px;
+  transform: translate3d(
+    calc(var(--space-x) * 2.5),
+    calc(var(--space-y) * 2.5 + var(--space-scroll) * -0.65),
+    0
+  );
+}
+.space-background-meteors {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(
+    calc(var(--space-x) * 1.7),
+    calc(var(--space-y) * 1.7 + var(--space-scroll) * -0.4),
+    0
+  );
+}
+.space-meteor-track {
+  position: absolute;
+  width: var(--meteor-length);
+  height: 2px;
+  transform: rotate(-32deg);
+}
+.space-meteor-track i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    #fff,
+    #c3e4ffc9 12%,
+    #b0d6ff40 45%,
+    transparent
+  );
+  animation: space-meteor-fall var(--meteor-duration) linear var(--meteor-delay)
+    infinite;
+}
+.space-meteor-track i::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px #c1e5ff;
+}
+@keyframes space-meteor-fall {
+  0% {
+    opacity: 0;
+    transform: translateX(80px);
+  }
+  3% {
+    opacity: 0.9;
+  }
+  17% {
+    opacity: 0.65;
+  }
+  23%,
+  100% {
+    opacity: 0;
+    transform: translateX(-650px);
+  }
+}
+@media (max-width: 767px) {
+  .space-background-stars span:nth-child(n + 46) {
+    display: none;
+  }
+  .space-meteor-track:nth-child(n + 6) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-background .space-background-stars,
+  .space-background .space-background-meteors {
+    transform: none;
+  }
+  .space-background-meteors {
+    display: none;
+  }
+}
