@@ -9,6 +9,14 @@ dist/
 build/
 */build/
 
+# Legacy / Sub-projects
+b_and_b/
+Websitedashboard/
+
+# Large unused media / raw event photo archives
+marksboiteck-website/public/assets/event/April-26-event-all-image/
+public/assets/event/April-26-event-all-image/
+
 # Environment and sensitive keys
 .env
 .env.*
@@ -30,4 +38,3 @@ debug.log
 .DS_Store
 Thumbs.db
 .claude/
-
