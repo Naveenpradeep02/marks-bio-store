@@ -1,0 +1,419 @@
+/* ==========================================================================
+   EVENT 10: INDIAN SOCIETY OF ORAL IMPLANTOLOGISTS (ISOI) CONFERENCE - MUMBAI
+   Dark cinematic aesthetic matching existing event page design & reference screenshot
+   ========================================================================== */
+
+.event10-page-main {
+  background-color: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 110px 0 100px;
+  font-family: "Inter", "Manrope", system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+.event10-container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Top Back Navigation */
+.event10-back-wrap {
+  margin-bottom: 35px;
+}
+
+.event10-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ce2017;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.event10-back-link:hover {
+  color: #ffffff;
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   HERO / OVERVIEW GRID
+   ========================================================================== */
+.event10-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 50px;
+  padding-bottom: 45px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event10-badge-pill {
+  display: inline-block;
+  background-color: #ce2017;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.event10-title {
+  font-size: clamp(30px, 3.8vw, 46px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.event10-subtitle {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 600;
+  color: #ce2017;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Hero Right Banner Image Frame */
+.event10-banner-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  background: #0d0f11;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event10-banner-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(206, 32, 23, 0.2);
+  border-color: rgba(206, 32, 23, 0.4);
+}
+
+.event10-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   EVENT GALLERY & CAROUSEL
+   ========================================================================== */
+.event10-gallery-section {
+  margin-bottom: 60px;
+}
+
+.event10-section-heading {
+  font-size: 28px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 24px;
+  letter-spacing: -0.02em;
+}
+
+.event10-carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.event10-carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(20, 22, 25, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.event10-carousel-btn:hover {
+  background: #ce2017;
+  border-color: #ce2017;
+  box-shadow: 0 0 15px rgba(206, 32, 23, 0.5);
+  transform: scale(1.05);
+}
+
+.event10-carousel-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px 4px;
+  width: 100%;
+}
+
+.event10-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.event10-thumb-card {
+  flex: 0 0 calc((100% - 40px) / 3);
+  min-width: 260px;
+  height: 200px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: #111316;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.event10-thumb-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.event10-thumb-card.active {
+  border-color: #ce2017;
+  box-shadow: 0 0 0 1px #ce2017, 0 8px 24px rgba(206, 32, 23, 0.35);
+}
+
+.event10-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================================
+   TWO-COLUMN EDITORIAL DETAILS SECTION
+   ========================================================================== */
+.event10-content-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+}
+
+/* Left Sidebar: Tags & Share */
+.event10-sidebar {
+  padding-top: 6px;
+}
+
+.event10-sidebar-block {
+  margin-bottom: 35px;
+}
+
+.event10-sidebar-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+  color: #8c949d;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.event10-tags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event10-tag-item {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.event10-tag-link {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.event10-tag-link:hover {
+  color: #ce2017;
+}
+
+.event10-share-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.event10-share-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.event10-share-icon-btn:hover {
+  background: #ce2017;
+  border-color: #ce2017;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(206, 32, 23, 0.4);
+}
+
+/* Right Main Column Content */
+.event10-main-column {
+  color: #d1d6db;
+}
+
+.event10-main-column h2.event10-article-title {
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 800;
+  color: #ce2017;
+  margin: 0 0 20px;
+  letter-spacing: -0.02em;
+}
+
+.event10-main-column h3.event10-subhead-red {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 800;
+  color: #ce2017;
+  margin: 38px 0 16px;
+  letter-spacing: -0.015em;
+}
+
+.event10-main-column p {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: #c4c9ce;
+  margin: 0 0 20px;
+}
+
+/* Bullet List */
+.event10-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.event10-bullet-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #c4c9ce;
+}
+
+.event10-bullet-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ce2017;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   LIGHTBOX MODAL
+   ========================================================================== */
+.event10-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+}
+
+.event10-lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+}
+
+.event10-lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.event10-lightbox-close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 38px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 992px) {
+  .event10-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .event10-content-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .event10-sidebar {
+    display: flex;
+    gap: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 24px;
+  }
+
+  .event10-thumb-card {
+    flex: 0 0 calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 640px) {
+  .event10-page-main {
+    padding: 90px 0 60px;
+  }
+
+  .event10-sidebar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .event10-thumb-card {
+    flex: 0 0 85%;
+  }
+
+  .event10-carousel-btn {
+    width: 38px;
+    height: 38px;
+  }
+}

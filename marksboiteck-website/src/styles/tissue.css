@@ -56,3 +56,244 @@
     padding-block: 0 !important;
   }
 }
+
+/* ========================================================
+   SURGICAL PROCEDURES (IMAGE 1)
+   ======================================================== */
+.tissue-procedures-section {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+  padding-block: clamp(48px, 6vw, 80px);
+  border-top: 1px solid #2a2a2a;
+}
+
+.tissue-proc-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.tissue-proc-media img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.tissue-proc-list {
+  list-style: disc;
+  padding-left: 24px;
+  margin: 0;
+}
+
+.tissue-proc-list li {
+  font-size: 17px;
+  line-height: 1.85;
+  color: #e5e5e5;
+  margin-bottom: 6px;
+}
+
+/* 6 PROCEDURE CARDS GRID */
+.tissue-proc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.tissue-proc-card {
+  background: #141416;
+  border: 1px solid #26262b;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.tissue-proc-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(30, 64, 175, 0.6);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+}
+
+.tissue-proc-card-media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #000;
+}
+
+.tissue-proc-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.tissue-proc-card:hover .tissue-proc-card-media img {
+  transform: scale(1.04);
+}
+
+.tissue-proc-card-label {
+  background: #1b3d88;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+  padding: 12px 16px;
+  letter-spacing: -0.01em;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ========================================================
+   METHOD OF USAGE & CLINICAL SAFETY (IMAGE 2)
+   ======================================================== */
+.tissue-method-section {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+  padding-block: clamp(48px, 6vw, 80px);
+  border-top: 1px solid #2a2a2a;
+}
+
+.tissue-method-split {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.tissue-method-copy h2,
+.tissue-safety-block h2 {
+  color: #c81616 !important;
+  font-size: clamp(22px, 2.4vw, 30px) !important;
+  font-weight: 700 !important;
+  margin-bottom: 16px !important;
+}
+
+.tissue-method-copy p {
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: #d4d4d8;
+  margin: 0;
+}
+
+.tissue-applicator-media {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+
+.tissue-applicator-media img {
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.tissue-safety-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.tissue-safety-block p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #d4d4d8;
+  margin: 0;
+}
+
+/* ========================================================
+   BIO-ADHESIVE PRODUCT OVERVIEW (IMAGE 3)
+   ======================================================== */
+.tissue-overview-section {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+  padding-block: clamp(48px, 6vw, 80px);
+  border-top: 1px solid #2a2a2a;
+}
+
+.tissue-overview-split {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+
+.tissue-overview-copy h2 {
+  color: #ffffff !important;
+  font-size: clamp(24px, 2.6vw, 32px) !important;
+  font-weight: 700 !important;
+  margin-bottom: 18px !important;
+}
+
+.tissue-overview-lead {
+  font-size: 16.5px;
+  line-height: 1.75;
+  color: #e5e5e5;
+  margin-bottom: 22px !important;
+}
+
+.tissue-specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tissue-spec-item {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: #d1d5db;
+  margin: 0 !important;
+}
+
+.tissue-spec-item strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.tissue-overview-media img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 900px) {
+  .tissue-proc-split,
+  .tissue-method-split,
+  .tissue-overview-split {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .tissue-proc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .tissue-proc-grid {
+    grid-template-columns: 1fr;
+  }
+  .tissue-procedures-section,
+  .tissue-method-section,
+  .tissue-overview-section {
+    width: calc(100% - 40px);
+    padding-block: 40px;
+  }
+}
+

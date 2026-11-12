@@ -57,6 +57,15 @@ export default function Customers() {
     }
   }
 
+  async function handleCustomerTypeChange(id, newType) {
+    try {
+      await api.patch(`/customers/${id}/type`, { customerType: newType });
+      fetchCustomers();
+    } catch (err) {
+      alert(err.message || "Failed to update customer type");
+    }
+  }
+
   return (
     <div className="analytics-page">
       <div className="analytics-header-row">
@@ -129,6 +138,7 @@ export default function Customers() {
                   <th className="num-col">Views</th>
                   <th className="num-col">Saved</th>
                   <th>Segment</th>
+                  <th>Pricing Tier</th>
                   <th style={{ width: "130px" }}></th>
                 </tr>
               </thead>
@@ -201,6 +211,25 @@ export default function Customers() {
                       >
                         {c.segment}
                       </span>
+                    </td>
+                    <td>
+                      <select
+                        value={c.customerType || "retail"}
+                        onChange={(e) => handleCustomerTypeChange(c.id, e.target.value)}
+                        style={{
+                          padding: "3px 8px",
+                          borderRadius: "6px",
+                          fontSize: "12px",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                          background: c.customerType === "wholesale" ? "#eff6ff" : "#f1f5f9",
+                          color: c.customerType === "wholesale" ? "#1d4ed8" : "#475569",
+                          border: "1px solid #cbd5e1",
+                        }}
+                      >
+                        <option value="retail">Retail</option>
+                        <option value="wholesale">Wholesale</option>
+                      </select>
                     </td>
                     <td className="row-actions">
                       <Link

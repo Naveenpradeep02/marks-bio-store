@@ -190,19 +190,48 @@ export default function Inventory() {
   const [historySearch, setHistorySearch] = useState("");
   const [historyType, setHistoryType] = useState("");
   const [modal, setModal] = useState(null); // null = closed, { product, variant? } = open
+  const [stockEnabled, setStockEnabled] = useState(false);
+  const [togglingStock, setTogglingStock] = useState(false);
 
   function load() {
     setLoading(true);
-    Promise.all([api.get("/products"), api.get("/inventory/logs")])
-      .then(([p, l]) => {
+    Promise.all([
+      api.get("/products"),
+      api.get("/inventory/logs"),
+      api.get("/inventory/settings").catch(() => ({ stockManagementEnabled: false })),
+    ])
+      .then(([p, l, s]) => {
         setProducts(p);
         setLogs(l);
+        if (s && s.stockManagementEnabled !== undefined) {
+          setStockEnabled(Boolean(s.stockManagementEnabled));
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }
 
   useEffect(load, []);
+
+  async function handleToggleStock() {
+    setTogglingStock(true);
+    setError("");
+    setMessage("");
+    try {
+      const nextState = !stockEnabled;
+      const res = await api.patch("/inventory/settings", { enabled: nextState });
+      setStockEnabled(Boolean(res.stockManagementEnabled));
+      setMessage(
+        res.stockManagementEnabled
+          ? "Stock Management is now ON. Inventory limits and stock tracking are active."
+          : "Stock Management is now OFF. Storefront will not show out-of-stock messages and customers can order freely."
+      );
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setTogglingStock(false);
+    }
+  }
 
   function handleSaved(newStock) {
     setMessage(`Stock updated. New stock: ${newStock}`);
@@ -236,13 +265,161 @@ export default function Inventory() {
   const outOfStockCount = products.filter((p) => productAggregateStock(p) <= 0).length;
 
   return (
-    <div>
-      <div className="page-header-row">
-        <h1>Inventory</h1>
-        <button className="submit-btn" onClick={() => setModal({ product: null })}>
-          + Adjust Stock
-        </button>
+    <div className="inventory-container" style={{ paddingBottom: "2rem" }}>
+      <div
+        className="page-header-row"
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "1.75rem",
+          paddingBottom: "1.25rem",
+          borderBottom: "1px solid var(--border-light, #e2e8f0)",
+          flexWrap: "wrap",
+          gap: "1.25rem",
+        }}
+      >
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+            <h1 style={{ margin: 0, fontSize: "1.65rem", fontWeight: "800", color: "#0f172a", letterSpacing: "-0.02em" }}>
+              Warehouse & Inventory
+            </h1>
+            <span
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                padding: "3px 9px",
+                borderRadius: "20px",
+                background: stockEnabled ? "#dcfce7" : "#fee2e2",
+                color: stockEnabled ? "#15803d" : "#b91c1c",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "5px",
+              }}
+            >
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: stockEnabled ? "#16a34a" : "#dc2626",
+                }}
+              />
+              {stockEnabled ? "Stock Tracking Active" : "Stock Tracking Disabled"}
+            </span>
+          </div>
+          <p style={{ margin: "6px 0 0", color: "#64748b", fontSize: "0.88rem" }}>
+            Real-time multi-variant inventory control, warehouse stock reconciliation, and stock policies.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+          {/* Stock Management Global Switch */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.85rem",
+              background: stockEnabled ? "#f8fafc" : "#fef2f2",
+              border: `1px solid ${stockEnabled ? "#cbd5e1" : "#fecaca"}`,
+              borderRadius: "10px",
+              padding: "7px 14px",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span
+                style={{
+                  fontSize: "0.7rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.06em",
+                  color: "#64748b",
+                  fontWeight: "700",
+                }}
+              >
+                Storefront Stock Policy
+              </span>
+              <span
+                style={{
+                  fontSize: "0.85rem",
+                  fontWeight: "800",
+                  color: stockEnabled ? "#0f172a" : "#b91c1c",
+                }}
+              >
+                {stockEnabled ? "Limit Orders by Stock" : "Allow Unlimited Orders"}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleToggleStock}
+              disabled={togglingStock}
+              style={{
+                background: stockEnabled ? "#dc2626" : "#16a34a",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "8px",
+                padding: "7px 14px",
+                fontSize: "0.82rem",
+                fontWeight: "700",
+                cursor: togglingStock ? "wait" : "pointer",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.08)",
+                transition: "all 0.15s ease",
+              }}
+              title="Click to toggle Stock Management on or off"
+            >
+              {togglingStock
+                ? "Updating..."
+                : stockEnabled
+                ? "Turn OFF Stock Limit"
+                : "Turn ON Stock Limit"}
+            </button>
+          </div>
+
+          <button
+            className="submit-btn"
+            onClick={() => setModal({ product: null })}
+            style={{
+              padding: "0.6rem 1.2rem",
+              fontSize: "0.88rem",
+              fontWeight: 700,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+            }}
+          >
+            <span>+</span> Adjust Stock
+          </button>
+        </div>
       </div>
+
+      {!stockEnabled && (
+        <div
+          style={{
+            background: "#eff6ff",
+            border: "1px solid #bfdbfe",
+            borderRadius: "8px",
+            padding: "0.85rem 1.15rem",
+            marginBottom: "1.25rem",
+            color: "#1e40af",
+            fontSize: "0.875rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
+          <div>
+            <strong>Stock Management is currently turned OFF:</strong>
+            <div style={{ marginTop: "2px", color: "#3b82f6" }}>
+              The storefront does not display stock counts or &quot;Out of Stock&quot; warnings. Customers can purchase all products without stock limits.
+            </div>
+          </div>
+          <span style={{ background: "#dbeafe", color: "#1e40af", padding: "4px 10px", borderRadius: "12px", fontSize: "0.75rem", fontWeight: "700", whiteSpace: "nowrap" }}>
+            Storefront: Unlimited Stock
+          </span>
+        </div>
+      )}
 
       {error && <div className="error-banner">{error}</div>}
       {message && <div className="success-banner">{message}</div>}
@@ -308,11 +485,11 @@ export default function Inventory() {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Product</th>
-                <th>SKU</th>
-                <th>Current Stock</th>
-                <th>Status</th>
-                <th></th>
+                <th style={{ width: "36%" }}>Product</th>
+                <th style={{ width: "20%" }}>SKU</th>
+                <th style={{ width: "16%", textAlign: "center" }}>Current Stock</th>
+                <th style={{ width: "16%", textAlign: "center" }}>Status</th>
+                <th style={{ width: "12%", textAlign: "right" }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -324,15 +501,20 @@ export default function Inventory() {
                 if (!hasVariants) {
                   return (
                     <tr key={p.id}>
-                      <td>{p.name}</td>
-                      <td>{p.sku || "-"}</td>
                       <td>
+                        <span className="category-name-cell">
+                          <ProductsIcon width={16} height={16} />
+                          <strong>{p.name}</strong>
+                        </span>
+                      </td>
+                      <td><code>{p.sku || "-"}</code></td>
+                      <td style={{ textAlign: "center" }}>
                         <strong className={status.cls === "badge-red" ? "low-stock" : ""}>{p.stock}</strong>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <span className={`status-badge ${status.cls}`}>{status.label}</span>
                       </td>
-                      <td className="row-actions">
+                      <td style={{ textAlign: "right" }}>
                         <button className="secondary" onClick={() => setModal({ product: p })}>
                           Adjust
                         </button>
@@ -351,30 +533,37 @@ export default function Inventory() {
                           <span className="status-badge badge-blue">{p.variants.length} sizes</span>
                         </span>
                       </td>
-                      <td>{p.sku || "-"}</td>
-                      <td>
+                      <td><code>{p.sku || "-"}</code></td>
+                      <td style={{ textAlign: "center" }}>
                         <strong className={status.cls === "badge-red" ? "low-stock" : ""}>{aggStock}</strong>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         <span className={`status-badge ${status.cls}`}>{status.label}</span>
                       </td>
-                      <td></td>
+                      <td style={{ textAlign: "right" }}>
+                        <button className="secondary" onClick={() => setModal({ product: p })}>
+                          Adjust
+                        </button>
+                      </td>
                     </tr>
                     {p.variants.map((v) => {
                       const vStatus = stockStatus(v.stock);
                       return (
                         <tr key={v.id} className="category-row-sub">
                           <td>
-                            <span className="category-name-cell sub">{v.value}</span>
+                            <span className="category-name-cell sub">
+                              <span style={{ color: "#94a3b8", marginRight: "4px" }}>↳</span>
+                              {v.value}
+                            </span>
                           </td>
-                          <td>{v.sku || "-"}</td>
-                          <td>
+                          <td><code>{v.sku || "-"}</code></td>
+                          <td style={{ textAlign: "center" }}>
                             <strong className={vStatus.cls === "badge-red" ? "low-stock" : ""}>{v.stock}</strong>
                           </td>
-                          <td>
+                          <td style={{ textAlign: "center" }}>
                             <span className={`status-badge ${vStatus.cls}`}>{vStatus.label}</span>
                           </td>
-                          <td className="row-actions">
+                          <td style={{ textAlign: "right" }}>
                             <button className="secondary" onClick={() => setModal({ product: p, variant: v })}>
                               Adjust
                             </button>

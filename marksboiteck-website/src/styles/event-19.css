@@ -1,0 +1,305 @@
+/* ==========================================================================
+   EVENT 19: NIDACON NAGPUR - CLINICAL CONFERENCE SHOWCASE
+   Dark cinematic aesthetic matching event page design & reference screenshot
+   ========================================================================== */
+
+.event19-page-main {
+  background-color: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 110px 0 90px;
+  font-family: "Inter", "Manrope", system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+.event19-container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Back Link */
+.event19-back-wrap {
+  margin-bottom: 35px;
+}
+
+.event19-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ce2017;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.event19-back-link:hover {
+  color: #ffffff;
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   HERO / OVERVIEW GRID
+   ========================================================================== */
+.event19-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 60px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event19-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: #8c949d;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.event19-title {
+  font-size: clamp(34px, 4.4vw, 56px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 0 18px;
+}
+
+.event19-subtitle {
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 700;
+  color: #ce2017;
+  line-height: 1.4;
+  margin: 0 0 24px;
+}
+
+.event19-desc {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #c4c9ce;
+  margin: 0 0 28px;
+  max-width: 620px;
+}
+
+.event19-booth-info {
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 800;
+  line-height: 1.35;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.event19-booth-info span {
+  display: block;
+}
+
+/* Hero Right Banner Image Frame */
+.event19-banner-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  background: #0d0f11;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event19-banner-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(206, 32, 23, 0.18);
+  border-color: rgba(206, 32, 23, 0.4);
+}
+
+.event19-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   EVENT GALLERY & CAROUSEL
+   ========================================================================== */
+.event19-gallery-section {
+  margin-top: 10px;
+}
+
+.event19-section-heading {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 28px;
+  letter-spacing: -0.02em;
+}
+
+.event19-carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  margin-top: 10px;
+}
+
+.event19-carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(22, 24, 27, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.event19-carousel-btn:hover {
+  background: #ce2017;
+  border-color: #ce2017;
+  box-shadow: 0 0 15px rgba(206, 32, 23, 0.5);
+  transform: scale(1.05);
+}
+
+.event19-carousel-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px 4px;
+  width: 100%;
+}
+
+.event19-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.event19-thumb-card {
+  flex: 0 0 260px;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: #111316;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.event19-thumb-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+.event19-thumb-card.active {
+  border-color: #ce2017;
+  box-shadow: 0 0 24px rgba(206, 32, 23, 0.55);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.event19-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Lightbox Modal */
+.event19-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  animation: event19FadeIn 0.2s ease-out;
+}
+
+@keyframes event19FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.event19-lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event19-lightbox-img {
+  max-width: 100%;
+  max-height: 82vh;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+}
+
+.event19-lightbox-close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.event19-lightbox-close:hover {
+  color: #ce2017;
+}
+
+/* ==========================================================================
+   RESPONSIVE QUERIES
+   ========================================================================== */
+@media (max-width: 960px) {
+  .event19-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .event19-thumb-card {
+    flex: 0 0 220px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  .event19-page-main {
+    padding-top: 85px;
+  }
+  .event19-title {
+    font-size: 32px;
+  }
+  .event19-subtitle {
+    font-size: 18px;
+  }
+  .event19-section-heading {
+    font-size: 26px;
+  }
+  .event19-booth-info {
+    font-size: 20px;
+  }
+  .event19-carousel-btn {
+    display: none;
+  }
+  .event19-thumb-card {
+    flex: 0 0 180px;
+    height: 130px;
+  }
+}

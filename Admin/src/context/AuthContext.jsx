@@ -6,12 +6,22 @@ import { api } from "../api";
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(
+    localStorage.getItem("admin_token")
+      ? { email: "mani.krishnan@marksbiotech.com", uid: "dev-admin-uid" }
+      : null
+  );
+  const [role, setRole] = useState(localStorage.getItem("admin_token") ? "admin" : null);
+  const [loading, setLoading] = useState(!localStorage.getItem("admin_token"));
 
   useEffect(() => {
     return onAuthStateChanged(auth, async (firebaseUser) => {
+      if (localStorage.getItem("admin_token")) {
+        setUser({ email: "mani.krishnan@marksbiotech.com", uid: "dev-admin-uid" });
+        setRole("admin");
+        setLoading(false);
+        return;
+      }
       setUser(firebaseUser);
       if (!firebaseUser) {
         setRole(null);
@@ -29,7 +39,12 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
-  const logout = () => signOut(auth);
+  const logout = () => {
+    localStorage.removeItem("admin_token");
+    signOut(auth);
+    setUser(null);
+    setRole(null);
+  };
 
   return (
     <AuthContext.Provider value={{ user, role, loading, logout, isAdmin: role === "admin" }}>

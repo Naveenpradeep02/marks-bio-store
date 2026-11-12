@@ -143,7 +143,7 @@ export default function SpaceBackground({ image = "/img/hero-space-bg.jpg" }) {
       <img
         className="space-background-image"
         src={image}
-        alt=""
+        alt="Marks Biotech Space Ambient Texture"
         fetchPriority="high"
       />
       <div className="space-background-shade" />

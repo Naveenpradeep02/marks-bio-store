@@ -68,7 +68,14 @@ export default function Invoices() {
               <tr key={inv.id}>
                 <td>{inv.invoiceNumber}</td>
                 <td>{inv.customerName || inv.customerEmail}</td>
-                <td>₹{inv.total}</td>
+                <td>
+                  <strong>₹{Number(inv.total).toLocaleString("en-IN")}</strong>
+                  {Number(inv.discountTotal) > 0 && (
+                    <div style={{ fontSize: "11px", color: "#059669", fontWeight: 600 }}>
+                      Savings: ₹{Number(inv.discountTotal).toLocaleString("en-IN")}
+                    </div>
+                  )}
+                </td>
                 <td>
                   <select value={inv.status} onChange={(e) => updateStatus(inv.id, e.target.value)}>
                     <option value="unpaid">unpaid</option>

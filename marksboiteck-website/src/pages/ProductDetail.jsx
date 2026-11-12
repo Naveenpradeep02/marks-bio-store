@@ -14,6 +14,13 @@ import "../styles/product-detail.css";
 
 const API_ORIGIN = import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, "");
 
+function resolveProductImg(img) {
+  if (!img) return null;
+  if (img.startsWith("http://") || img.startsWith("https://")) return img;
+  if (img.startsWith("/assets/")) return img;
+  return `${API_ORIGIN}${img}`;
+}
+
 export default function ProductDetail() {
   const { slug } = useParams();
   const [products, setProducts] = useState([]);
@@ -22,7 +29,9 @@ export default function ProductDetail() {
   const [error, setError] = useState("");
   const [addedId, setAddedId] = useState(undefined);
   const [heroIndex, setHeroIndex] = useState(0);
-  const { addToCart } = useCart();
+  const [offersData, setOffersData] = useState({ bulkSlabs: [], comboOffers: [] });
+  const [recommendations, setRecommendations] = useState([]);
+  const { addToCart, addRecommendationToCart } = useCart();
 
   useEffect(() => {
     Promise.all([api.get("/products"), api.get("/brands")])
@@ -40,9 +49,16 @@ export default function ProductDetail() {
     return products.find(
       (p) =>
         (p.slug && p.slug.toLowerCase() === decodedSlug) ||
-        slugify(p.name) === decodedSlug,
+        slugify(p.name) === decodedSlug ||
+        String(p.id) === decodedSlug,
     );
   }, [products, slug]);
+
+  const variantOptions = useMemo(() => getVariantOptions(product), [product]);
+  const hero =
+    variantOptions[Math.min(heroIndex, variantOptions.length - 1)] ||
+    variantOptions[0];
+  const activeVariantId = hero?.id || null;
 
   useEffect(() => {
     if (!product?.id) return;
@@ -60,7 +76,20 @@ export default function ProductDetail() {
     };
   }, [product?.id]);
 
-  const variantOptions = useMemo(() => getVariantOptions(product), [product]);
+  useEffect(() => {
+    if (!product?.id) return;
+    const vQuery = activeVariantId ? `?variantId=${activeVariantId}` : "";
+    api
+      .get(`/offers/product/${product.id}${vQuery}`)
+      .then((data) => setOffersData(data || { bulkSlabs: [], comboOffers: [] }))
+      .catch((err) => console.warn("Failed to load product offers:", err));
+
+    api
+      .get(`/offers/recommendations/${product.id}${vQuery}`)
+      .then((data) => setRecommendations(data || []))
+      .catch((err) => console.warn("Failed to load recommendations:", err));
+  }, [product?.id, activeVariantId]);
+
   const brandName = (id) => brands.find((b) => b.id === id)?.name || "";
 
   function handleAdd(variant, quantity) {
@@ -108,9 +137,6 @@ export default function ProductDetail() {
     );
   }
 
-  const hero =
-    variantOptions[Math.min(heroIndex, variantOptions.length - 1)] ||
-    variantOptions[0];
   const brand = brandName(product.brandId);
   const isMultiVariant = variantOptions.length > 1;
   const minPrice = Math.min(...variantOptions.map((v) => v.price));
@@ -151,9 +177,9 @@ export default function ProductDetail() {
         </div>
       </nav>
 
-      {/* Main Two-Column Layout: Left = Product & Variants, Right = Description & Clinical Overview */}
+      {/* Main Two-Column Layout */}
       <main className="detail-main-layout">
-        {/* Left Column: Product Visual Showcase & Variant Purchasing Options */}
+        {/* Left Column: Product Showcase & Variant Purchasing Options */}
         <section
           className="detail-gallery-col"
           aria-label="Product Showcase and Purchasing Options"
@@ -176,7 +202,7 @@ export default function ProductDetail() {
               ></div>
               {product.images?.[0] ? (
                 <img
-                  src={`${API_ORIGIN}${product.images[0]}`}
+                  src={resolveProductImg(product.images[0])}
                   alt={product.name}
                   className="detail-hero-img"
                 />
@@ -271,7 +297,7 @@ export default function ProductDetail() {
           </div>
         </section>
 
-        {/* Right Column: Title, Pricing & Full Clinical Description / Specifications */}
+        {/* Right Column: Title, Pricing, Offers & Clinical Description */}
         <section
           className="detail-purchase-col"
           aria-label="Product Description and Clinical Details"
@@ -310,6 +336,220 @@ export default function ProductDetail() {
                 </div>
               </div>
             </div>
+
+            {/* Active Promotional Badges / Combos */}
+            {offersData.comboOffers?.length > 0 && (
+              <div style={{ marginTop: "1rem", display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                {offersData.comboOffers.map((co) => (
+                  <div
+                    key={co.id}
+                    style={{
+                      background: "#fef2f2",
+                      border: "1px solid #fecaca",
+                      borderRadius: "8px",
+                      padding: "0.5rem 0.75rem",
+                      fontSize: "0.85rem",
+                      color: "#991b1b",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <span>🏷️</span>
+                    <div>
+                      <strong>{co.badge || co.title}</strong>
+                      {co.message && <span style={{ marginLeft: "0.35rem", color: "#64748b" }}>— {co.message}</span>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Bulk Quantity Pricing Slabs Table */}
+            {offersData.bulkSlabs?.length > 0 && (
+              <div
+                style={{
+                  marginTop: "1.25rem",
+                  background: "#fff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "10px",
+                  padding: "1rem 1.25rem",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    marginBottom: "0.75rem",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    color: "#0f172a",
+                  }}
+                >
+                  <i className="fa-solid fa-boxes-stacked" style={{ color: "var(--brand)" }}></i>
+                  <span>Bulk &amp; Tiered Quantity Pricing</span>
+                </div>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+                  <thead>
+                    <tr style={{ background: "#f8fafc", textAlign: "left", color: "#334155" }}>
+                      <th style={{ padding: "0.55rem 0.75rem", fontWeight: 700 }}>Quantity Slab</th>
+                      <th style={{ padding: "0.55rem 0.75rem", fontWeight: 700 }}>Discount / Unit Price</th>
+                      <th style={{ padding: "0.55rem 0.75rem", fontWeight: 700 }}>Scope &amp; Audience</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {offersData.bulkSlabs.map((s, idx) => (
+                      <tr key={idx} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                        <td style={{ padding: "0.55rem 0.75rem", fontWeight: 700, color: "#0f172a" }}>
+                          {s.minQuantity}
+                          {s.maxQuantity ? ` – ${s.maxQuantity}` : "+"} units
+                        </td>
+                        <td style={{ padding: "0.55rem 0.75rem", color: "#059669", fontWeight: 700 }}>
+                          {s.discountType === "percentage"
+                            ? `${s.discountValue}% OFF`
+                            : s.discountType === "special_unit_price"
+                            ? `₹${Number(s.discountValue).toLocaleString("en-IN")} / unit`
+                            : `₹${Number(s.discountValue).toLocaleString("en-IN")} OFF / unit`}
+                        </td>
+                        <td style={{ padding: "0.55rem 0.75rem", color: "#334155", fontWeight: 500 }}>
+                          <span style={{ textTransform: "capitalize" }}>
+                            {s.customerType === "all" ? "All Customers" : `${s.customerType} only`}
+                          </span>
+                          {s.targetVariantId && (
+                            <span
+                              style={{
+                                marginLeft: "6px",
+                                fontSize: "0.7rem",
+                                background: "#fef3c7",
+                                color: "#92400e",
+                                padding: "2px 6px",
+                                borderRadius: "4px",
+                                fontWeight: 700,
+                              }}
+                            >
+                              Variant Specific
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Frequently Bought Together / Cross-Sell (PDP Section) */}
+            {recommendations.length > 0 && (
+              <div
+                style={{
+                  marginTop: "1.5rem",
+                  background: "#fff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "12px",
+                  padding: "1.25rem",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  <span style={{ fontSize: "1.1rem" }}>✨</span>
+                  <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 700, color: "#1e293b" }}>
+                    Frequently Bought Together
+                  </h3>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  {recommendations.slice(0, 3).map((rec) => (
+                    <div
+                      key={rec.recommendationId || rec.productId}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "0.75rem",
+                        background: "#fafafa",
+                        borderRadius: "8px",
+                        border: "1px solid #f1f5f9",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                        {rec.imageUrl ? (
+                          <img
+                            src={resolveProductImg(rec.imageUrl)}
+                            alt={rec.name}
+                            style={{ width: 44, height: 44, borderRadius: "6px", objectFit: "cover" }}
+                          />
+                        ) : (
+                          <div
+                            style={{
+                              width: 44,
+                              height: 44,
+                              borderRadius: "6px",
+                              background: "#e2e8f0",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                          >
+                            📦
+                          </div>
+                        )}
+                        <div>
+                          <div style={{ fontWeight: 600, fontSize: "0.85rem", color: "#0f172a" }}>
+                            {rec.name}
+                          </div>
+                          <div style={{ display: "flex", gap: "0.5rem", alignItems: "baseline" }}>
+                            <span style={{ fontWeight: 700, color: "#059669", fontSize: "0.9rem" }}>
+                              ₹{Number(rec.discountedPrice).toLocaleString("en-IN")}
+                            </span>
+                            {rec.discountedPrice < rec.originalPrice && (
+                              <span style={{ fontSize: "0.75rem", color: "#94a3b8", textDecoration: "line-through" }}>
+                                ₹{Number(rec.originalPrice).toLocaleString("en-IN")}
+                              </span>
+                            )}
+                            <span
+                              style={{
+                                fontSize: "0.7rem",
+                                background: "#ecfdf5",
+                                color: "#059669",
+                                padding: "1px 6px",
+                                borderRadius: "4px",
+                                fontWeight: 600,
+                              }}
+                            >
+                              Special Add-on
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => addRecommendationToCart(rec)}
+                        style={{
+                          padding: "0.45rem 0.9rem",
+                          background: "#0f172a",
+                          color: "#fff",
+                          border: "none",
+                          borderRadius: "6px",
+                          fontSize: "0.8rem",
+                          fontWeight: 600,
+                          cursor: "pointer",
+                        }}
+                      >
+                        + Add
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Clinical Specifications & Indications Description Card */}

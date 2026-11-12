@@ -18,6 +18,14 @@ export default function Careers() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSelectRole = (roleName) => {
+    setFormData((prev) => ({ ...prev, role: roleName }));
+    const formElement = document.getElementById("form");
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     alert(
@@ -35,7 +43,7 @@ export default function Careers() {
   };
 
   return (
-    <main>
+    <main className="careers-main-wrap">
       {/* 1. TOP BANNER */}
       <section className="top-banner-careers">
         <div>
@@ -60,10 +68,20 @@ export default function Careers() {
                 aria-expanded={showPositions}
                 onClick={() => setShowPositions((prev) => !prev)}
               >
-                View Open Positions
+                {showPositions ? (
+                  <>
+                    <i className="fa-solid fa-chevron-up"></i> Hide Open Positions
+                  </>
+                ) : (
+                  <>
+                    <i className="fa-solid fa-briefcase"></i> View Open Positions
+                  </>
+                )}
               </button>
               <button className="btn-outline" type="button">
-                <a href="#form"> Send Your Resume</a>
+                <a href="#form">
+                  <i className="fa-solid fa-file-arrow-up"></i> Send Your Resume
+                </a>
               </button>
             </div>
           </div>
@@ -74,33 +92,91 @@ export default function Careers() {
             aria-hidden={!showPositions}
           >
             <h3>Open Service Roles</h3>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Territory Sales Managers</h4>
-            </div>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Sales &amp; Service Engineers</h4>
-            </div>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Accounts Manager</h4>
-            </div>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Operation &amp; Logistics Manager</h4>
-            </div>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Social Media Executive</h4>
-            </div>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Regulatory Executives</h4>
-            </div>
-            <div className="service-role-card">
-              <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
-              <h4>Product Manager</h4>
+            <div className="service-roles-grid">
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Territory Sales Managers")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Territory Sales Managers");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Territory Sales Managers</h4>
+              </div>
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Sales & Service Engineers")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Sales & Service Engineers");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Sales &amp; Service Engineers</h4>
+              </div>
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Accounts Manager")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Accounts Manager");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Accounts Manager</h4>
+              </div>
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Operation & Logistics Manager")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Operation & Logistics Manager");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Operation &amp; Logistics Manager</h4>
+              </div>
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Social Media Executive")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Social Media Executive");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Social Media Executive</h4>
+              </div>
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Regulatory Executives")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Regulatory Executives");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Regulatory Executives</h4>
+              </div>
+              <div
+                className="service-role-card"
+                onClick={() => handleSelectRole("Product Manager")}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSelectRole("Product Manager");
+                }}
+              >
+                <i className="fa-solid fa-user-tie" aria-hidden="true"></i>
+                <h4>Product Manager</h4>
+              </div>
             </div>
           </div>
         </div>
@@ -162,85 +238,105 @@ export default function Careers() {
         <h2>Application Form</h2>
 
         <form className="apply-form" id="form" onSubmit={handleSubmit}>
-          <label style={{ textAlign: "left" }}>
-            Full Name <span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter Full Name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="form-grid-row">
+            <div className="form-field-group">
+              <label>
+                Full Name <span style={{ color: "#ce2017" }}>*</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter Full Name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
-          <label style={{ textAlign: "left" }}>
-            Email Address <span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter Email Address"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
+            <div className="form-field-group">
+              <label>
+                Email Address <span style={{ color: "#ce2017" }}>*</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter Email Address"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label style={{ textAlign: "left" }}>
-            Mobile Number <span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            name="mobile"
-            placeholder="Enter Mobile Number"
-            value={formData.mobile}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="form-grid-row">
+            <div className="form-field-group">
+              <label>
+                Mobile Number <span style={{ color: "#ce2017" }}>*</span>
+              </label>
+              <input
+                type="text"
+                name="mobile"
+                placeholder="Enter Mobile Number"
+                value={formData.mobile}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
-          <label style={{ textAlign: "left" }}>
-            City<span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            name="city"
-            placeholder="Enter Mobile Number"
-            value={formData.city}
-            onChange={handleInputChange}
-            required
-          />
+            <div className="form-field-group">
+              <label>
+                City <span style={{ color: "#ce2017" }}>*</span>
+              </label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Enter City"
+                value={formData.city}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label style={{ textAlign: "left" }}>
-            Role Applying For <span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            name="role"
-            placeholder="role"
-            value={formData.role}
-            onChange={handleInputChange}
-            required
-          />
+          <div className="form-grid-row">
+            <div className="form-field-group">
+              <label>
+                Role Applying For <span style={{ color: "#ce2017" }}>*</span>
+              </label>
+              <input
+                type="text"
+                name="role"
+                placeholder="e.g. Territory Sales Managers"
+                value={formData.role}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
 
-          <label style={{ textAlign: "left" }}>
-            Upload Resume <span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            name="resume"
-            placeholder="Paste Google Drive resume link"
-            value={formData.resume}
-            onChange={handleInputChange}
-            required
-          />
+            <div className="form-field-group">
+              <label>
+                Upload Resume <span style={{ color: "#ce2017" }}>*</span>
+              </label>
+              <input
+                type="text"
+                name="resume"
+                placeholder="Paste Google Drive resume link"
+                value={formData.resume}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          </div>
 
-          <label style={{ textAlign: "left" }}>Message (optional)</label>
-          <textarea
-            placeholder="Enter Message"
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-          ></textarea>
+          <div className="form-field-group">
+            <label>Message (optional)</label>
+            <textarea
+              placeholder="Enter Message"
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
 
           <button className="btn-primary" type="submit">
             Submit Application

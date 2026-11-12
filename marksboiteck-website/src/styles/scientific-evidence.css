@@ -1,585 +1,660 @@
-* {
-  margin: 0;
-  padding: 0;
+/* ==========================================================================
+   SCIENTIFIC EVIDENCE PAGE STYLES - MARKS BIOTECH
+   Theme: Luxury Dark Cinematic (#08090b) with Signature Red (#ce2017) Accents
+   Fully scoped to prevent global style leakage
+   ========================================================================== */
+
+.scientific-page-main {
+  background-color: #08090b;
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  position: relative;
   box-sizing: border-box;
 }
-:root {
-  /* fonts */
-  --primary-font: "Homizio", sans-serif;
-  --secondary-font: "Inder", sans-serif;
-  /* color */
-  --primary-color: #0f0f0f;
-  --secondary-color: #ffffff;
-  --red-color: #ce2017;
-  --gray-color: #b2b2b2;
+
+/* Ambient Radial Glow */
+.scientific-page-main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, 100%);
+  height: 600px;
+  background: radial-gradient(circle at 50% 15%, rgba(206, 32, 23, 0.12), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-body {
-  background-color: var(--primary-color);
-  overflow-x: hidden;
-}
-
-h1 {
-  font-family: var(--primary-font);
-  font-size: 5rem;
-  color: var(--secondary-color);
-  font-weight: 700;
-}
-h2 {
-  font-size: 3.2rem;
-}
-
-p {
-  font-family: var(--secondary-font);
-  /* color: #ffffff;
-  font-size: 18px; */
-}
-a{
-    text-decoration: none;
-}
-li{
-    color: #eeeeee;
-}
-/* img{
-    padding: 30px;
-} */
-
-
-
-.top-banner-careers {
+/* ==========================================================================
+   1. TOP BANNER
+   ========================================================================== */
+.scientific-page-main .top-banner-careers {
+  position: relative;
   width: 100%;
-  height:80vh;
-  background-image: linear-gradient(
+  min-height: 48vh;
+  max-height: 500px;
+  background-image: 
+    linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.8) 40%,
-      rgba(19, 18, 18, 0.8) 100%
+      rgba(8, 9, 11, 0.8) 0%,
+      rgba(8, 9, 11, 0.65) 50%,
+      rgba(8, 9, 11, 0.98) 100%
     ),
     url("/assets/imgs/scientific-banner");
-
-  background-position: center;
+  background-position: center 30%;
   background-repeat: no-repeat;
   background-size: cover;
-  position: center;
-  overflow: hidden;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 130px 24px 60px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-.top-banner-careers h1 {
-  font-size: 60px;
-  font-weight: 600;
+
+.scientific-page-main .top-banner-careers::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #08090b);
+  pointer-events: none;
+}
+
+.scientific-page-main .top-banner-careers > div {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  letter-spacing: 0.05cap;
+  max-width: 960px;
+  animation: sciFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-
-/* ============================= */
-/* SCIENTIFIC EVIDENCE SECTION  */
-/* ============================= */
-
-#faqs {
-  background: #000;
-  padding: 80px 20px;
-  color: #fff;
-}
-
-.regulatory-container {
-  max-width: 1200px;
-  margin: auto;
-  text-align: center;
-}
-
-/* Heading */
-.heading-3 {
-  font-size: 60px;
+.scientific-page-main .top-banner-badge {
+  display: inline-block;
+  background-color: rgba(206, 32, 23, 0.15);
+  color: #ff4d42;
+  border: 1px solid rgba(206, 32, 23, 0.35);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
   margin-bottom: 20px;
-  text-align: start;
-  font-family: var(--primary-font);
-  color: #ce2017;
-  letter-spacing: 0.07cap;
+  backdrop-filter: blur(8px);
 }
 
-.faq-text {
-  font-size: 20px;
+.scientific-page-main .top-banner-careers h1 {
+  font-family: "Outfit", "Archivo", "Homizio", sans-serif;
+  font-size: clamp(34px, 5.2vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: #ffffff;
-  margin-bottom: 50px;
-  text-align: start;
+  margin: 0;
+  line-height: 1.15;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.85);
+  background: linear-gradient(180deg, #ffffff 40%, #c4cbd4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* GRID */
-.div-block-27 {
+/* ==========================================================================
+   2. STATS STRIP
+   ========================================================================== */
+.scientific-page-main .sci-stats-strip {
+  max-width: 1200px;
+  margin: -30px auto 60px;
+  padding: 0 24px;
+  position: relative;
+  z-index: 3;
+}
+
+.scientific-page-main .sci-stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin-bottom: 60px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  background: linear-gradient(145deg, rgba(18, 21, 27, 0.95), rgba(11, 13, 17, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 26px 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(16px);
 }
 
-/* CARD STRUCTURE */
-.evidence-link {
-  text-decoration: none;
-  color: #fff;
+.scientific-page-main .sci-stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-/* IMAGE WRAPPER */
-.evidence-link img {
-  width: 85%;              /* reduced width */
-  border-radius: 14px;
-  transition: transform 0.5s ease;
-  display: block;
-}
-
-/* HOVER ZOOM */
-.evidence-link:hover img {
-  transform: scale(1.2);   /* 20% zoom */
-}
-
-/* TEXT BELOW IMAGE (outside look) */
-.evidence-text {
-  margin-top: 40px;
-  font-size: 20px;
-  line-height: 1.3;
-  max-width: 100%;
   text-align: center;
-  color: #fa281c;
+  gap: 4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Reference long text */
-#faqs .faq-text:last-of-type {
-  text-align: left;
-  font-size: 14px;
-  line-height: 1.8;
-  color: #ffffff;
-  max-width: 1000px;
-  margin: 0 auto 60px auto;
+.scientific-page-main .sci-stat-item:last-child {
+  border-right: none;
 }
 
-/* ============================= */
-/* SCIENTIFIC REFERENCES LIST */
-/* ============================= */
-
-#faqs .faq-text:last-of-type {
-  text-align: left;
-  font-size: 16px;      /* slightly increased */
-  line-height: 1.9;       /* better readability */
-  color: #ffffff;
-  max-width: 800px;
-  margin: 40px auto 80px auto;
-  padding-left: 10px;
+.scientific-page-main .sci-stat-num {
+  font-family: "Outfit", "Archivo", sans-serif;
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: 800;
+  color: #ce2017;
+  letter-spacing: -0.02em;
 }
 
-/* Add spacing between each numbered reference */
-#faqs .faq-text:last-of-type br + br {
-  content: "";
-  display: block;
-  margin-bottom: 14px;
-}
-
-/* Improve DOI link visibility if any */
-#faqs .faq-text:last-of-type a {
-  color: #ffffff;
-  text-decoration: underline;
-  word-break: break-word;
-}
-
-.faq-group-title {
-    font-size: 50px;
-    color: var(--red-color);
-    text-align: start;
-}
-.faq-text1 {
-    font-size: 24px;
-    margin-top: 20px;
-    text-align: start;
-    margin-bottom: 50px;
-    color: var(--gray-color);
-}
-.w-button{
-    background-color: #ce2017;
-    color: #000;
-    padding: 12px 32px;
-    border-radius: 15px;
-    text-align: start;
-    font-size: 20px;
-    font-weight: 600;
-}
-.w-button:hover{
-    background-color: #fff;
-}
-
-/* ===================================== */
-/* TABLET VIEW (992px ↓) */
-/* ===================================== */
-
-@media (max-width: 992px) {
-
-  /* Banner */
-  .top-banner-careers {
-    height: 60vh;
-    padding: 40px 20px;
-  }
-
-  .top-banner-careers h1 {
-    font-size: 36px;
-  }
-
-  /* Section Padding */
-  #faqs {
-    padding: 70px 25px;
-  }
-
-  /* Heading */
-  .heading-3 {
-    font-size: 40px;
-    text-align: left;
-  }
-
-  .faq-text {
-    font-size: 18px;
-    text-align: left;
-  }
-
-  /* Grid */
-  .div-block-27 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-
-  /* Image */
-  .evidence-link img {
-    width: 90%;
-  }
-
-  .evidence-text {
-    font-size: 16px;
-    margin-top: 25px;
-  }
-
-  /* References */
-  #faqs .faq-text:last-of-type {
-    max-width: 100%;
-    font-size: 15px;
-    line-height: 1.8;
-    padding-left: 0;
-  }
-
-  /* Bottom text */
-  .faq-group-title {
-    font-size: 34px;
-  }
-
-  .faq-text1 {
-    font-size: 18px;
-  }
-}
-
-
-/* ===================================== */
-/* MOBILE VIEW (576px ↓) */
-/* ===================================== */
-
-@media (max-width: 576px) {
-
-  /* Banner */
-  .top-banner-careers {
-    height: 50vh;
-    padding: 30px 15px;
-  }
-
-  .top-banner-careers h1 {
-    font-size: 24px;
-    line-height: 1.3;
-  }
-
-  /* Section */
-  #faqs {
-    padding: 60px 15px;
-  }
-
-  /* Heading */
-  .heading-3 {
-    font-size: 28px;
-    text-align: left;
-  }
-
-  .faq-text {
-    font-size: 16px;
-    margin-bottom: 30px;
-    text-align: left;
-  }
-
-  /* Grid -> Single column */
-  .div-block-27 {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-
-  /* Image */
-  .evidence-link img {
-    width: 95%;
-  }
-
-  .evidence-text {
-    font-size: 14px;
-    margin-top: 18px;
-  }
-
-  /* Reference list */
-  #faqs .faq-text:last-of-type {
-    font-size: 14px;
-    line-height: 1.7;
-    margin: 30px 0 50px 0;
-  }
-
-  /* Bottom section */
-  .faq-group-title {
-    font-size: 24px;
-  }
-
-  .faq-text1 {
-    font-size: 16px;
-  }
-
-  .w-button {
-    font-size: 16px;
-    padding: 10px 20px;
-  }
-}
-/* FLOATING LAYOUT */
-.floating-container {
-  width: 100%;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 12px;
-  z-index: 999;
-}
-
-/* EVENT BOX */
-.event-box {
-  position: relative;
-  background: #000000;
-  padding: 15px;
-  width: 450px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  margin-left: 40px;
-  border: 2px solid var(--red-color);
-  color: var(--secondary-color);
-}
-.float-event-close {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-.event-box h2 {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.event-box h3 {
-  font-family: var(--secondary-font);
+.scientific-page-main .sci-stat-label {
+  font-size: 13px;
   font-weight: 600;
-  font-size: 16px;
+  color: #a4afbc;
+  letter-spacing: 0.02em;
 }
 
-.event-details {
-  font-size: 14px;
-  margin-top: 5px;
-  display: flex;
-  gap: 8px;
+/* ==========================================================================
+   3. SCIENTIFIC EVIDENCE CONTENT SECTION
+   ========================================================================== */
+.scientific-page-main #faqs {
+  background: transparent !important;
+  padding: 20px 24px 100px !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
-.floating-btn-con {
+
+.scientific-page-main .regulatory-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.scientific-page-main .sci-header-block {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.scientific-page-main .heading-3 {
+  font-family: "Outfit", "Archivo", "Homizio", sans-serif;
+  font-size: clamp(32px, 4vw, 50px) !important;
+  font-weight: 800;
+  color: #ce2017 !important;
+  margin-bottom: 14px !important;
+  letter-spacing: -0.02em;
+  text-align: center !important;
+}
+
+.scientific-page-main .faq-text-subtitle {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: #cfd4dc;
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   4. FEATURED PAPERS GRID (3 PAPERS)
+   ========================================================================== */
+.scientific-page-main .featured-papers-heading {
+  font-family: "Outfit", "Archivo", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 12px;
 }
-.event-box button,
-.event-box a {
-  margin-top: 10px;
-  width: 100%;
-  background: var(--red-color);
-  color: #fff;
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 16px;
-  text-align: center;
+
+.scientific-page-main .featured-papers-heading::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 22px;
+  background: #ce2017;
+  border-radius: 4px;
 }
-.event-toggle-btn {
-  position: fixed;
-  bottom: 30px;
-  left: 20px;
-  background: var(--red-color);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 30px;
-  cursor: pointer;
-  display: none;
-  z-index: 100;
-  font-size: 14px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+.scientific-page-main .div-block-27 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 26px !important;
+  margin-bottom: 70px !important;
 }
-/* WHATSAPP BUTTON */
-.floating-container .whatsapp-btn {
+
+.scientific-page-main .evidence-link {
+  background: linear-gradient(150deg, rgba(22, 25, 31, 0.85) 0%, rgba(13, 15, 19, 0.95) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 18px !important;
+  padding: 22px !important;
+  text-decoration: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5) !important;
   position: relative;
-  width: 60px;
-  height: 60px;
-  background: #25d366;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 100;
+  overflow: hidden;
 }
 
-/* WAVE EFFECT */
-.floating-container .wave {
-  width: fit-content;
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  cursor: pointer;
-  background: rgba(37, 211, 102, 0.5);
-  border-radius: 50%;
-  animation: wave 2s infinite;
-}
-
-.floating-container .wave.delay {
-  animation-delay: 0.5s;
-}
-
-@keyframes wave {
-  0% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-.event-toggle-btn:hover {
-  animation: blurPulse 1.5s infinite;
-}
-/* VIBRATE */
-.whatsapp-btn:hover {
-  animation: vibrate 0.3s linear infinite;
-}
-@keyframes blurPulse {
-  0% {
-    filter: scale(0.8);
-  }
-  50% {
-    filter: scale(1);
-  }
-  100% {
-    filter: scale(0.8);
-  }
-}
-@keyframes vibrate {
-  0% {
-    transform: translate(0);
-  }
-  25% {
-    transform: translate(1px, -1px);
-  }
-  50% {
-    transform: translate(-1px, 1px);
-  }
-  75% {
-    transform: translate(1px, 1px);
-  }
-  100% {
-    transform: translate(0);
-  }
-}
-
-.whatsapp-btn img {
-  width: 28px;
-  z-index: 2;
-}
-
-/* POPUP */
-.popup {
-  position: fixed;
+.scientific-page-main .evidence-link::before {
+  content: "";
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.622);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  font-family: var(--secondary-font);
-  z-index: 1000;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ce2017, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.popup-content {
-  background: #000000;
-  padding: 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-  color: var(--secondary-color);
-  border: 2px solid var(--red-color);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+.scientific-page-main .evidence-link:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(206, 32, 23, 0.55) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(206, 32, 23, 0.15) !important;
 }
-.popup-content.popup-image {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 400px;
-  position: relative;
-  height: 80vh;
-  overflow-y: scroll;
+
+.scientific-page-main .evidence-link:hover::before {
+  opacity: 1;
 }
-.popup-content input,
-.popup-content select {
+
+.scientific-page-main .evidence-image-wrap {
   width: 100%;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  height: 220px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+  background: #000000;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scientific-page-main .evidence-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  margin-bottom: 0 !important;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.scientific-page-main .evidence-link:hover .evidence-image {
+  transform: scale(1.05);
+}
+
+.scientific-page-main .evidence-paper-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #ce2017;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.scientific-page-main .evidence-text {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+  color: #ffffff !important;
+  margin-bottom: 16px;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.scientific-page-main .evidence-pdf-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(206, 32, 23, 0.12);
+  border: 1px solid rgba(206, 32, 23, 0.35);
+  border-radius: 20px;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  margin-top: auto;
+}
+
+.scientific-page-main .evidence-link:hover .evidence-pdf-cta {
+  background: #ce2017;
+  border-color: #ce2017;
+  box-shadow: 0 4px 16px rgba(206, 32, 23, 0.4);
+}
+
+/* ==========================================================================
+   5. KEY CLINICAL REFERENCES REPOSITORY (48 STUDIES)
+   ========================================================================== */
+.scientific-page-main .references-repository-box {
+  background: linear-gradient(160deg, rgba(18, 20, 26, 0.95) 0%, rgba(12, 14, 18, 0.98) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 22px !important;
+  padding: 44px 40px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  position: relative;
+}
+
+.scientific-page-main .references-top-header {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 34px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 28px;
+}
+
+.scientific-page-main .references-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.scientific-page-main .references-heading {
+  font-family: "Outfit", "Archivo", sans-serif;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.015em;
+}
+
+.scientific-page-main .references-heading i {
+  color: #ce2017;
+}
+
+.scientific-page-main .references-count-badge {
+  background: rgba(206, 32, 23, 0.14);
+  color: #ff4d42;
+  border: 1px solid rgba(206, 32, 23, 0.35);
+  font-size: 13px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* Search Bar */
+.scientific-page-main .ref-search-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.scientific-page-main .ref-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7a8694;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.scientific-page-main .ref-search-input {
+  width: 100%;
+  padding: 14px 20px 14px 48px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.22s ease;
+}
+
+.scientific-page-main .ref-search-input::placeholder {
+  color: #717d8a;
+}
+
+.scientific-page-main .ref-search-input:focus {
+  border-color: #ce2017;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(206, 32, 23, 0.25);
+}
+
+/* Category Filter Tags */
+.scientific-page-main .ref-filter-tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.scientific-page-main .ref-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #aeb8c4;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scientific-page-main .ref-filter-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.scientific-page-main .ref-filter-btn.active {
+  background: #ce2017;
+  border-color: #ce2017;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(206, 32, 23, 0.4);
+}
+
+/* Reference Cards List */
+.scientific-page-main .references-list-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scientific-page-main .reference-card-item {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-left: 3px solid #ce2017;
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all 0.25s ease;
+  text-align: left;
+}
+
+.scientific-page-main .reference-card-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-left-color: #ff3b30;
+  transform: translateX(4px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.scientific-page-main .ref-num-badge {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(206, 32, 23, 0.12);
+  border: 1px solid rgba(206, 32, 23, 0.3);
+  color: #ff4d42;
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scientific-page-main .ref-content-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scientific-page-main .ref-citation-text {
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #d1d7de;
+  margin: 0;
+}
+
+.scientific-page-main .ref-links-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.scientific-page-main .ref-meta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  color: #ff6b61;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.scientific-page-main .ref-meta-link:hover {
+  background: #ce2017;
+  color: #ffffff;
+  border-color: #ce2017;
+  transform: translateY(-1px);
+}
+
+.scientific-page-main .ref-copy-btn {
   background: transparent;
   border: none;
-  border-bottom: 2px solid var(--secondary-color);
-  color: var(--secondary-color);
-  outline: none;
-}
-.popup-content select option {
-  background: #000000;
-  color: var(--secondary-color);
-}
-.popup-content button {
-  width: 100%;
-  background: var(--red-color);
-  color: white;
-  padding: 10px;
-  border-radius: 6px;
+  color: #8b96a4;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-.popup .close-btn {
-  width: fit-content;
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  cursor: pointer;
+.scientific-page-main .ref-copy-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
 }
-.event-box{
-    display: none;
+
+/* Empty search result state */
+.scientific-page-main .ref-empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: #8c98a5;
+  font-size: 15px;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+@keyframes sciFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .scientific-page-main .sci-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .scientific-page-main .sci-stat-item:nth-child(2) {
+    border-right: none;
+  }
+
+  .scientific-page-main .div-block-27 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .scientific-page-main .top-banner-careers {
+    min-height: 42vh;
+    padding: 110px 18px 45px;
+  }
+
+  .scientific-page-main .sci-stats-strip {
+    margin-top: -15px;
+    margin-bottom: 40px;
+    padding: 0 16px;
+  }
+
+  .scientific-page-main .sci-stats-grid {
+    grid-template-columns: 1fr;
+    padding: 20px 22px;
+  }
+
+  .scientific-page-main .sci-stat-item {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 14px;
+  }
+
+  .scientific-page-main .sci-stat-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .scientific-page-main .div-block-27 {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .scientific-page-main .references-repository-box {
+    padding: 28px 20px !important;
+  }
+
+  .scientific-page-main .reference-card-item {
+    padding: 16px 18px;
+    gap: 14px;
+  }
+
+  .scientific-page-main .ref-num-badge {
+    width: 30px;
+    height: 30px;
+    font-size: 12px;
+  }
 }

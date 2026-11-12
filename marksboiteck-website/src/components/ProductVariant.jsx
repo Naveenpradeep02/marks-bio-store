@@ -47,15 +47,12 @@ export function VariantSwatches({ variants, activeIndex, onSelect }) {
       </div>
       <div className="variant-swatch-row">
         {variants.map((v, i) => {
-          const inStock = Number(v.stock) > 0;
           const isActive = i === activeIndex;
           return (
             <button
               type="button"
               key={v.id ?? i}
-              className={`variant-swatch-card ${isActive ? "active" : ""} ${
-                !inStock ? "out-of-stock" : ""
-              }`}
+              className={`variant-swatch-card ${isActive ? "active" : ""}`}
               onClick={() => onSelect(i)}
             >
               <div className="swatch-meta">
@@ -89,27 +86,18 @@ export function VariantRow({
   onSelectHero,
 }) {
   const [quantity, setQuantity] = useState(1);
-  const inStock = Number(variant.stock) > 0;
   const isJustAdded = justAddedId === variant.id;
   const label = variant.label || product.name;
 
   return (
     <div
-      className={`variant-card ${highlighted ? "is-highlighted" : ""} ${!inStock ? "is-oos" : ""}`}
+      className={`variant-card ${highlighted ? "is-highlighted" : ""}`}
       onClick={() => onSelectHero && onSelectHero()}
     >
       <div className="variant-card-main">
         <div className="variant-card-info">
           <div className="variant-card-heading">
             <h4 className="variant-card-title">{label}</h4>
-            <span
-              className={`variant-stock-tag ${inStock ? "in-stock" : "out-of-stock"}`}
-            >
-              <span className="stock-dot"></span>
-              <span>
-                {inStock ? `${variant.stock} in stock` : "Out of stock"}
-              </span>
-            </span>
           </div>
 
           {variant.sku && (
@@ -144,14 +132,13 @@ export function VariantRow({
           <QtyStepper
             id={`qty-${variant.id ?? "base"}`}
             quantity={quantity}
-            max={Number(variant.stock) || 99}
+            max={99}
             onChange={setQuantity}
           />
 
           <button
             type="button"
             className={`variant-add-btn ${isJustAdded ? "btn-success" : ""}`}
-            disabled={!inStock}
             onClick={(e) => {
               e.stopPropagation();
               onAdd(variant, quantity);
@@ -162,13 +149,11 @@ export function VariantRow({
                 <i className="fa-solid fa-check" aria-hidden="true"></i>
                 <span>Added to Cart</span>
               </>
-            ) : inStock ? (
+            ) : (
               <>
                 <i className="fa-solid fa-cart-plus" aria-hidden="true"></i>
                 <span>Add to Cart</span>
               </>
-            ) : (
-              <span>Out of Stock</span>
             )}
           </button>
         </div>

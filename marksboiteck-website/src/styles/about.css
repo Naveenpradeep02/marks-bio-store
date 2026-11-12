@@ -940,8 +940,9 @@ a {
 
 .team-card {
   perspective: 1200px;
-  height: 540px;
+  height: 560px;
   cursor: pointer;
+  outline: none;
 }
 
 .team-card-inner {
@@ -951,72 +952,102 @@ a {
   transform-style: preserve-3d;
   transform-origin: center center;
   will-change: transform;
-  transition: transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  border-radius: 20px;
 }
 
+.team-card:hover .team-card-inner,
 .team-card.is-flipped .team-card-inner,
-.team-card:focus-within .team-card-inner {
+.team-card:focus-visible .team-card-inner {
   transform: rotateY(180deg);
 }
 
 .team-card-face {
   position: absolute;
   inset: 0;
-  border-radius: 14px;
+  border-radius: 20px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.team-card:hover .team-card-face {
+  box-shadow: 0 16px 36px rgba(184, 20, 20, 0.28);
 }
 
 .team-card-front {
   background: #f4f4f4;
   color: #000;
-  padding: 25px;
+  padding: 22px 20px;
   text-align: center;
+  transform: rotateY(0deg);
 }
 
 .team-card-front img {
   width: 100%;
-  height: 340px;
+  height: 350px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .team-card-front h4 {
   margin-top: 15px;
   color: #c81616;
-  font-size: 30px;
+  font-size: 26px;
   font-family: var(--secondary-font);
+  font-weight: 700;
 }
 
 .team-card-front span {
-  font-size: 20px;
+  font-size: 16px;
   font-family: var(--secondary-font);
-  line-height: 1.28;
+  line-height: 1.32;
+  color: #222;
 }
 
 .team-card-back {
   transform: rotateY(180deg);
-  background: linear-gradient(145deg, #cc2020, #6f0909);
+  background: radial-gradient(circle at 50% 25%, #b51515 0%, #7e0a0a 65%, #520505 100%);
   color: #fff;
-  padding: 30px;
-  justify-content: center;
+  padding: 30px 24px;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+}
+
+.team-card-back::-webkit-scrollbar {
+  width: 5px;
+}
+
+.team-card-back::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
 }
 
 .team-card-back h4 {
-  margin-bottom: 15px;
-  font-size: 34px;
+  margin-top: 4px;
+  margin-bottom: 18px;
+  font-size: 30px;
   font-weight: 700;
+  font-family: var(--secondary-font);
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
 .team-card-back p {
-  font-size: 14px;
-  line-height: 1.43;
+  font-size: 13.5px;
+  line-height: 1.5;
   text-align: justify;
+  text-justify: inter-word;
+  color: #ffffff;
+  margin: 0;
 }
 
 /* EMPOWER */
@@ -1128,14 +1159,16 @@ a {
 @media (max-width: 900px) {
   .team-cards {
     grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
   }
 
   .team-card {
-    height: 520px;
+    height: 560px;
   }
 
   .team-card-front img {
-    height: 300px;
+    height: 320px;
   }
 
   .empower-content {
@@ -1357,29 +1390,30 @@ a {
   }
 
   .team-card {
-    height: 500px;
+    height: 560px;
   }
 
   .team-card-front img {
-    height: 300px;
+    height: 320px;
   }
 
   .team-card-front h4 {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .team-card-front span {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .team-card-back h4 {
-    font-size: 22px;
+    font-size: 26px;
+    margin-bottom: 16px;
   }
 
   .team-card-back p {
-    font-size: 10px;
-    line-height: 0.9;
-    font-family: var(--secondary-font);
+    font-size: 13px;
+    line-height: 1.48;
+    font-family: inherit;
     padding: 0;
   }
 }
@@ -1725,34 +1759,33 @@ a {
   }
 
   .team-card {
-    height: 520px;
+    height: 560px;
   }
 
   .team-card-back {
-    padding: 14px 12px 12px;
+    padding: 26px 20px;
     justify-content: flex-start;
-    align-items: stretch;
-    text-align: left;
+    align-items: center;
+    text-align: center;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
   .team-card-back h4 {
     font-size: 24px;
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: 10px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 14px;
     text-align: center;
   }
 
   .team-card-back p {
-    width: 89%;
+    width: 100%;
     margin: 0;
-    margin: auto;
-    font-size: 11.8px;
-    line-height: 1.35;
+    font-size: 13px;
+    line-height: 1.48;
     text-align: justify;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
   }
 
   .card {

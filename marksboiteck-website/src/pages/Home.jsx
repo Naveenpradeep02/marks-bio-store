@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import LightRays from "../components/LightRays";
 import Threads from "../components/Threads";
-import SpaceBackground from "../components/SpaceBackground";
 import DuravitEV from "../components/DuravitEV";
 import EVImplantTechnology from "../components/EVImplantTechnology";
 import "../styles/home-navident.css";
@@ -158,8 +156,6 @@ export default function Home() {
         className="hero-section straumann-hero theme-red"
         aria-label="Hero Banner"
       >
-        <SpaceBackground />
-
         {/* Hero Central Inner Container aligned with Header (1280px max-width) */}
         <div className="straumann-hero-inner">
           {/* Hero Content on the Left */}
@@ -248,47 +244,18 @@ export default function Home() {
             </div>
           </div>
           <div className="ar-content">
-            <div className="ar-eyebrow">NAVIDENT / AUGMENTED REALITY</div>
             <h2>
-              Virtual to <span>reality.</span>
+              VIRTUAL TO <span>REALITY</span>
             </h2>
             <h3>
-              A new way to see.
-              <br />A connected way to work.
+              NAVIDENT OFFERS A SOLUTION OF AUGMENTED REALITY AR GLASSES
             </h3>
             <p className="ar-description">
-              Bring the surgical view and navigation screen together. Navident
-              connects with compatible augmented reality glasses, helping
-              clinicians view the patient’s jaw and monitor information at the
-              same time.
+              Navident is compatible with multiple Augmented Reality (AR)
+              Glasses which will help the clinicians during surgery to view the
+              patient jaw and the monitor screen at the same time on the Head
+              Gear AR Glasses.
             </p>
-            <ul className="ar-features">
-              <li>
-                <i className="fa-solid fa-glasses" aria-hidden="true"></i>
-                <span>
-                  Compatible
-                  <br />
-                  <strong>AR glasses</strong>
-                </span>
-              </li>
-              <li>
-                <i className="fa-solid fa-layer-group" aria-hidden="true"></i>
-                <span>
-                  Connected
-                  <br />
-                  <strong>Surgical view</strong>
-                </span>
-              </li>
-            </ul>
-            <div className="ar-actions">
-              <a className="ar-primary-link" href="#navident-systems">
-                Explore Navident <span aria-hidden="true">↗</span>
-              </a>
-              <a className="ar-demo-link" href="#navident-video">
-                <i className="fa-regular fa-circle-play" aria-hidden="true"></i>{" "}
-                Watch the demo
-              </a>
-            </div>
           </div>
         </div>
       </section>
@@ -391,24 +358,22 @@ export default function Home() {
                 </span>
                 <div className="nav3-text">
                   <div className="navident-slide-intro">
-                    <div className="navident-model-badge">
-                      <i
-                        className="fa-solid fa-circle-nodes"
-                        aria-hidden="true"
-                      ></i>
-                      <span>FLAGSHIP COMPUTER-GUIDED NAVIGATION</span>
-                    </div>
                     <h2 className="nav-product-title">
                       Navident <span>3.0</span>
                     </h2>
                     <p className="nav-product-desc">
                       Claronav Navident is a cutting-edge computer-guided
-                      implant navigation solution providing live, sub-millimeter
-                      real-time tracking during surgical osteotomy. It empowers
-                      clinicians with absolute control over 3D angulation,
-                      depth, and anatomical margins.
+                      implant navigation solution that provides live, real-time
+                      tracking during dental surgeries. It empowers dentists
+                      with complete control over angle, depth, and position,
+                      ensuring predictable and efficient implant outcomes.
+                    </p>
+                    <p className="nav-product-desc" style={{ marginTop: "14px" }}>
+                      Built for precision-driven implantology and superior
+                      clinical performance.
                     </p>
                   </div>
+                  {/*
                   <div className="navident-specs-row">
                     <div className="spec-metric-box">
                       <span className="spec-val">&lt; 0.5 mm</span>
@@ -423,6 +388,7 @@ export default function Home() {
                       <span className="spec-lbl">Implant Compatibility</span>
                     </div>
                   </div>
+                  */}
 
                   <div className="navident-card-actions">
                     <a href="#navident-video" className="navident-primary-cta">
@@ -474,21 +440,16 @@ export default function Home() {
                 </span>
                 <div className="nav3-text">
                   <div className="navident-slide-intro">
-                    <div className="navident-model-badge badge-cyan">
-                      <i className="fa-solid fa-bolt" aria-hidden="true"></i>
-                      <span>NEXT-GEN SURGICAL OPTICS</span>
-                    </div>
                     <h2 className="nav-product-title">
                       Navident <span>4.0 EVO</span>
                     </h2>
                     <p className="nav-product-desc">
-                      Navident EVO represents the pinnacle of robotic surgical
-                      navigation, equipped with advanced stereoscopic
-                      high-framerate optical sensors specifically engineered to
-                      improve surgical outcomes in complex hard-tissue and
-                      pterygoid restorations.
+                      Navident EVO is the latest in dental-surgical navigation
+                      technology, designed to enhance the precision and improve
+                      the results of hard-tissue dental surgeries.
                     </p>
                   </div>
+                  {/*
                   <div className="navident-specs-row">
                     <div className="spec-metric-box">
                       <span className="spec-val">60 FPS</span>
@@ -503,6 +464,7 @@ export default function Home() {
                       <span className="spec-lbl">Direct HUD Display</span>
                     </div>
                   </div>
+                  */}
 
                   <div className="navident-card-actions">
                     <a
@@ -567,26 +529,17 @@ export default function Home() {
                 </span>
                 <div className="nav3-text">
                   <div className="navident-slide-intro">
-                    <div className="navident-model-badge badge-purple">
-                      <i
-                        className="fa-solid fa-camera-retro"
-                        aria-hidden="true"
-                      ></i>
-                      <span>ULTRA-PRECISE PHOTOGRAMMETRY</span>
-                    </div>
                     <h2 className="nav-product-title">
-                      <span>Micron</span>Mapper
+                      Experience Precision and Predictability with{" "}
+                      <span>MicronMapper</span>
                     </h2>
-                    <p className="nav-product-desc-lead">
-                      Experience Zero-Distortion Full Arch Scanning
-                    </p>
                     <p className="nav-product-desc">
-                      ClaroNav's MicronMapper delivers industrial-grade wireless
-                      photogrammetry capable of capturing exact 3D multi-implant
-                      coordinates across full-arch cases in under 45 seconds,
-                      enabling same-day precision provisional loading.
+                      ClaroNav&apos;s MicronMapper is our latest digital solution.
+                      This is the key technology utilized by surgeons to deliver
+                      a double arch 3D provisional within one hour.
                     </p>
                   </div>
+                  {/*
                   <div className="navident-specs-row">
                     <div className="spec-metric-box">
                       <span className="spec-val">&lt; 10 µm</span>
@@ -603,6 +556,7 @@ export default function Home() {
                       <span className="spec-lbl">Provisional Prosthetics</span>
                     </div>
                   </div>
+                  */}
 
                   <div className="navident-card-actions">
                     <Link to="/all-products" className="navident-primary-cta">
@@ -687,12 +641,16 @@ export default function Home() {
               <div className="card-content">
                 {/* Top-Left: Badge, Title & Description */}
                 <div className="duravit-top-left">
+                  {/*
                   <div className="duravit-badge">
                     <span>PREMIUM DENTAL IMPLANT</span>
                   </div>
+                  */}
                   <h3 className="duravit-title">{card.name}</h3>
+                  {/*
                   <h5 className="duravit-subtitle">{card.subtitle}</h5>
                   <p className="duravit-desc">{card.desc}</p>
+                  */}
                 </div>
 
                 {/* Center: Large 3D Floating Product Image */}
@@ -707,6 +665,7 @@ export default function Home() {
                 </div>
 
                 {/* Right-Bottom: CTA Button */}
+                {/*
                 <div className="duravit-bottom-right">
                   <div className="duravit-action-row">
                     <Link to="/all-products" className="duravit-explore-btn">
@@ -718,6 +677,7 @@ export default function Home() {
                     </Link>
                   </div>
                 </div>
+                */}
               </div>
             </div>
           ))}

@@ -7,7 +7,14 @@ import "../styles/all-products.css";
 
 const API_ORIGIN = import.meta.env.VITE_API_BASE_URL.replace(/\/api\/?$/, "");
 
-function ProductCard({ product, getBrandName, activeSearchQuery }) {
+function resolveProductImg(img) {
+  if (!img) return null;
+  if (img.startsWith("http://") || img.startsWith("https://")) return img;
+  if (img.startsWith("/assets/")) return img;
+  return `${API_ORIGIN}${img}`;
+}
+
+function ProductCard({ product, getBrandName, activeSearchQuery, offerBadge }) {
   const navigate = useNavigate();
   const variants = getVariantOptions(product);
   const isMultiVariant = variants.length > 1;
@@ -40,6 +47,21 @@ function ProductCard({ product, getBrandName, activeSearchQuery }) {
               <span>{variants.length} Sizes</span>
             </span>
           )}
+          {offerBadge && (
+            <span
+              style={{
+                background: "var(--brand, #ce2017)",
+                color: "#fff",
+                padding: "2px 8px",
+                borderRadius: "4px",
+                fontSize: "11px",
+                fontWeight: 700,
+                textTransform: "uppercase",
+              }}
+            >
+              🏷️ {offerBadge}
+            </span>
+          )}
         </div>
 
         {/* Ambient lighting highlight behind product */}
@@ -49,7 +71,7 @@ function ProductCard({ product, getBrandName, activeSearchQuery }) {
         {product.images?.[0] ? (
           <img
             className="product-card-img"
-            src={`${API_ORIGIN}${product.images[0]}`}
+            src={resolveProductImg(product.images[0])}
             alt={product.name}
             loading="lazy"
           />
@@ -169,6 +191,7 @@ export default function AllProducts() {
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);
   const [categoryTree, setCategoryTree] = useState([]);
+  const [activeOffers, setActiveOffers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -184,11 +207,13 @@ export default function AllProducts() {
       api.get("/products"),
       api.get("/brands"),
       api.get("/categories?tree=true"),
+      api.get("/offers/active").catch(() => []),
     ])
-      .then(([p, b, c]) => {
+      .then(([p, b, c, off]) => {
         setProducts(p.filter((item) => item.status !== "inactive"));
         setBrands(b);
         setCategoryTree(c);
+        setActiveOffers(off || []);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -364,6 +389,53 @@ export default function AllProducts() {
           </p>
         </div>
       </section>
+
+      {/* Active Promotional Campaigns Banner */}
+      {activeOffers.length > 0 && (
+        <div style={{ maxWidth: 1400, margin: "1.5rem auto 0 auto", padding: "0 1.5rem" }}>
+          <div
+            style={{
+              background: "linear-gradient(90deg, #0f172a 0%, #1e1b4b 100%)",
+              border: "1px solid #334155",
+              borderRadius: 12,
+              padding: "1rem 1.5rem",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "1rem",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+              <span style={{ fontSize: "1.5rem" }}>🏷️</span>
+              <div>
+                <div style={{ fontWeight: 700, fontSize: "1rem", color: "#f8fafc" }}>
+                  Active Promotional Offers &amp; Volume Pricing
+                </div>
+                <div style={{ fontSize: "0.85rem", color: "#94a3b8", marginTop: "2px" }}>
+                  {activeOffers.map((o) => o.badge || o.title).join(" · ")}
+                </div>
+              </div>
+            </div>
+            <Link
+              to="/cart"
+              style={{
+                background: "var(--brand, #ce2017)",
+                color: "#fff",
+                padding: "0.55rem 1.15rem",
+                borderRadius: 6,
+                fontWeight: 600,
+                textDecoration: "none",
+                fontSize: "0.85rem",
+              }}
+            >
+              View Cart Tray →
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Main Store Workspace (Sticky Filter + Product Grid) */}
       <main className="products-shop-layout">
@@ -576,14 +648,18 @@ export default function AllProducts() {
             </div>
           ) : (
             <div className={`products-grid cols-${gridColumns}`}>
-              {visibleProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  getBrandName={brandName}
-                  activeSearchQuery={searchQuery.trim()}
-                />
-              ))}
+              {visibleProducts.map((product) => {
+                const promo = activeOffers.find((o) => o.badge);
+                return (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    getBrandName={brandName}
+                    activeSearchQuery={searchQuery.trim()}
+                    offerBadge={promo?.badge || null}
+                  />
+                );
+              })}
             </div>
           )}
         </section>

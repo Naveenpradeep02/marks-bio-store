@@ -1,8 +1,13 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config(); // fallback to current working directory if any
+
+import express from "express";
+import cors from "cors";
 
 import authRoutes from "./routes/auth.routes.js";
 import brandRoutes from "./routes/brands.routes.js";
@@ -14,9 +19,13 @@ import orderRoutes from "./routes/orders.routes.js";
 import invoiceRoutes from "./routes/invoices.routes.js";
 import uploadRoutes from "./routes/uploads.routes.js";
 import analyticsRoutes from "./routes/analytics.routes.js";
+import offerRoutes from "./routes/offers.routes.js";
+import popupRoutes from "./routes/popups.routes.js";
+import blogRoutes from "./routes/blogs.routes.js";
+import seoRoutes from "./routes/seo.routes.js";
+import eventRoutes from "./routes/events.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 const configuredOrigins = [
@@ -41,6 +50,7 @@ app.use(
 );
 app.use(express.json());
 app.use("/uploads", express.static(path.resolve(__dirname, "../uploads")));
+app.use("/assets", express.static(path.resolve(__dirname, "../../marksboiteck-website/public/assets")));
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
@@ -54,6 +64,11 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/uploads", uploadRoutes);
 app.use("/api/analytics", analyticsRoutes);
+app.use("/api/offers", offerRoutes);
+app.use("/api/popups", popupRoutes);
+app.use("/api/blogs", blogRoutes);
+app.use("/api/seo", seoRoutes);
+app.use("/api/events", eventRoutes);
 
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
 app.use(errorHandler);

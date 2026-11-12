@@ -16,6 +16,8 @@ import CustomerProfile from "./pages/CustomerProfile";
 import ProductAnalytics from "./pages/ProductAnalytics";
 import ProductAnalyticsDetail from "./pages/ProductAnalyticsDetail";
 import MarketingAnalytics from "./pages/MarketingAnalytics";
+import Offers from "./pages/Offers";
+import OfferForm from "./pages/OfferForm";
 
 export default function App() {
   return (
@@ -41,6 +43,9 @@ export default function App() {
               path="analytics/marketing"
               element={<MarketingAnalytics />}
             />
+            <Route path="offers" element={<Offers />} />
+            <Route path="offers/new" element={<OfferForm />} />
+            <Route path="offers/:id/edit" element={<OfferForm />} />
             <Route path="products" element={<Products />} />
             <Route path="products/new" element={<ProductForm />} />
             <Route path="products/:id/edit" element={<ProductForm />} />

@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/about.css";
 
 export default function About() {
+  const [flippedCards, setFlippedCards] = useState({});
+
+  const toggleCard = (index) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
   return (
     <main className="about-page-main">
       <h1 className="sr-only">About Marks Biotech</h1>
@@ -118,7 +126,7 @@ export default function About() {
 
           <div className="coverage-text">
             <h3>
-              <span>100 + CITIES IN COVERAGE LIST</span>
+              <span>100+ CITIES IN COVERAGE LIST</span>
             </h3>
             <p>
               We deliver products and services to 100+ cities across India
@@ -378,7 +386,19 @@ export default function About() {
 
           <div className="team-cards">
             {/* Dr Prabhu Vinayagam */}
-            <div className="team-card">
+            <div
+              className={`team-card ${flippedCards[0] ? "is-flipped" : ""}`}
+              onClick={() => toggleCard(0)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleCard(0);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="Dr. Prabhu Vinayagam - Click to flip card"
+            >
               <div className="team-card-inner">
                 <div className="team-card-face team-card-front">
                   <img
@@ -401,14 +421,31 @@ export default function About() {
                     (MAMC), a Diploma in Anesthesiology (DA), and an MBA in
                     Marketing and Operations from SP Jain School of Global
                     Management, Singapore. He served as the Managing Director of
-                    Joint Commission International (JCI) – Asia Pacific.
+                    Joint Commission International (JCI) – Asia Pacific, where
+                    he played a pivotal role in Guiding nearly 80 Hospitals
+                    across the Region toward International Accreditation
+                    Standards. His Leadership Significantly Strengthened
+                    Healthcare Quality Frameworks and Operational Excellence in
+                    Multiple Countries.
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Mr V Sourirajan */}
-            <div className="team-card">
+            <div
+              className={`team-card ${flippedCards[1] ? "is-flipped" : ""}`}
+              onClick={() => toggleCard(1)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleCard(1);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="Mr. V. Sourirajan - Click to flip card"
+            >
               <div className="team-card-inner">
                 <div className="team-card-face team-card-front">
                   <img
@@ -429,14 +466,26 @@ export default function About() {
                     Commercial Leadership Across India and South Asia. Former
                     Business Director at Becton Dickinson &amp; Co, India with
                     Multi-business-unit P&amp;L Ownership and a Tenure on the BD
-                    India Leadership Team.
+                    India Leadership Team
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Mr N Mahesh Kumar */}
-            <div className="team-card">
+            <div
+              className={`team-card ${flippedCards[2] ? "is-flipped" : ""}`}
+              onClick={() => toggleCard(2)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  toggleCard(2);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="Mr. N. Mahesh Kumar - Click to flip card"
+            >
               <div className="team-card-inner">
                 <div className="team-card-face team-card-front">
                   <img
@@ -457,7 +506,19 @@ export default function About() {
                     Paper Industries. With a Strong Academic Foundation in
                     Commerce and Economics, he brings deep Expertise in
                     Financial Management, Cash Flow Optimization, Risk
-                    Mitigation, and Sustainable Business Structuring.
+                    Mitigation, and Sustainable Business Structuring. Mr. Mahesh
+                    Kumar's Strengths Extend to Global Sourcing, Strategic
+                    Vendor Partnerships, and Supply Chain Optimization across
+                    Diverse Geographies. His Core Capabilities include Logistics
+                    Planning, Channel Management, and Distribution Network
+                    Expansion, ensuring Operational Efficiency and Market
+                    Reach. An active industry contributor, he has held key
+                    positions including Treasurer and Board Member in Traders
+                    and Wholesalers associations, notably serving as Treasurer
+                    of the The Karur Amravathi Traders &amp; Merchant
+                    Association. Currently, he serves as Director of VPM Paper
+                    &amp; Board Pvt Ltd., Leading Business Expansion across South
+                    Tamil Nadu.
                   </p>
                 </div>
               </div>

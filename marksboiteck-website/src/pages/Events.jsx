@@ -6,6 +6,23 @@ export default function Events() {
   const [selectedYear, setSelectedYear] = useState("2026");
   const [selected2025Type, setSelected2025Type] = useState("conference");
   const [selected2026Type, setSelected2026Type] = useState("conference");
+  const [dbEvents, setDbEvents] = useState([]);
+
+  React.useEffect(() => {
+    fetch("http://127.0.0.1:5000/api/events?limit=100")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        const loaded = Array.isArray(data?.events)
+          ? data.events
+          : Array.isArray(data)
+          ? data
+          : [];
+        if (loaded.length > 0) {
+          setDbEvents(loaded);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <main>
@@ -99,24 +116,51 @@ export default function Events() {
         </label>
       </div>
 
-      {/* EVENTS GRID */}
+      {/* EVENTS GRID (Dynamic Sync with Backend + Static Fallback) */}
       <div className="events-grid">
-        {/* 2025 workshop events */}
-        <Link to="/events/8" className="event-card workshop year-2025-event">
-          <div className="event-status-bar completed">
-            <span className="event-status">Completed</span>
-          </div>
-          <img
-            src="/assets/event/11.webp"
-            loading="lazy"
-            alt="Navident Advanced Sugical &amp; Prosthetic Workshop"
-          />
-          <div className="event-content">
-            <div className="event-title">
-              Navident Advanced Sugical &amp; Prosthetic Workshop
-            </div>
-          </div>
-        </Link>
+        {dbEvents && dbEvents.length > 0 ? (
+          dbEvents.map((ev) => (
+            <Link
+              key={ev.id}
+              to={`/events/${ev.id}`}
+              className={`event-card ${ev.type || "workshop"} year-${ev.year || "2026"}-event`}
+            >
+              <div className={`event-status-bar ${ev.status || "upcoming"}`}>
+                <span className="event-status">
+                  {ev.status === "upcoming" ? "Upcoming" : "Completed"}
+                </span>
+              </div>
+              <img
+                src={ev.image_url || "/assets/event/11.webp"}
+                loading="lazy"
+                alt={ev.title}
+                onError={(e) => {
+                  e.currentTarget.src = "/assets/event/11.webp";
+                }}
+              />
+              <div className="event-content">
+                <div className="event-title">{ev.title}</div>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <>
+            {/* 2025 workshop events */}
+            <Link to="/events/8" className="event-card workshop year-2025-event">
+              <div className="event-status-bar completed">
+                <span className="event-status">Completed</span>
+              </div>
+              <img
+                src="/assets/event/11.webp"
+                loading="lazy"
+                alt="Navident Advanced Sugical &amp; Prosthetic Workshop"
+              />
+              <div className="event-content">
+                <div className="event-title">
+                  Navident Advanced Sugical &amp; Prosthetic Workshop
+                </div>
+              </div>
+            </Link>
 
         <Link to="/events/11" className="event-card workshop year-2025-event">
           <div className="event-status-bar completed">
@@ -208,7 +252,7 @@ export default function Events() {
           />
           <div className="event-content">
             <div className="event-title">
-              Indian Society of Oral Implantologists Conference
+              Indian Society of Oral Implantologists (ISOI) Conference – Mumbai
             </div>
           </div>
         </Link>
@@ -223,7 +267,9 @@ export default function Events() {
             alt="2nd National Conference - OSICON"
           />
           <div className="event-content">
-            <div className="event-title">2nd National Conference - OSICON</div>
+            <div className="event-title">
+              OSICON 2025 – 2nd National Conference of the Osseointegration Society of India
+            </div>
           </div>
         </Link>
 
@@ -299,10 +345,12 @@ export default function Events() {
           <img
             src="/assets/event/33.png"
             loading="lazy"
-            alt="Learn From The Navident Experts"
+            alt="Advanced Live Surgical & Prosthetic Workshop"
           />
           <div className="event-content">
-            <div className="event-title">Learn From The Navident Experts</div>
+            <div className="event-title">
+              Advanced Live Surgical &amp; Prosthetic Workshop
+            </div>
           </div>
         </Link>
 
@@ -422,11 +470,11 @@ export default function Events() {
           <img
             src="/assets/event/31.webp"
             loading="lazy"
-            alt="India's Largest International Digital Dentistry Congress"
+            alt="2nd Global Implant Summit 2026 - Trivandrum"
           />
           <div className="event-content">
             <div className="event-title">
-              India`s Largest International Digital Dentistry Congress
+              2nd Global Implant Summit 2026 - Trivandrum
             </div>
           </div>
         </Link>
@@ -454,10 +502,10 @@ export default function Events() {
           <img
             src="/assets/event/29.webp"
             loading="lazy"
-            alt="Expodent Bangalore"
+            alt="Global Expodent Bangalore"
           />
           <div className="event-content">
-            <div className="event-title">Expodent Bangalore</div>
+            <div className="event-title">Global Expodent Bangalore</div>
           </div>
         </Link>
 
@@ -476,6 +524,8 @@ export default function Events() {
             </div>
           </div>
         </Link>
+          </>
+        )}
       </div>
     </main>
   );

@@ -34,11 +34,14 @@ function serializeInvoice(inv, items) {
     items: (items || []).map((i) => ({
       name: i.name,
       sku: i.sku,
+      originalPrice: Number(i.original_price || i.price),
+      discount: Number(i.discount || 0),
       price: Number(i.price),
       quantity: i.quantity,
       lineTotal: Number(i.line_total),
     })),
     subtotal: Number(inv.subtotal),
+    discountTotal: Number(inv.discount_total || 0),
     tax: Number(inv.tax),
     total: Number(inv.total),
     status: inv.status,
@@ -74,8 +77,8 @@ export const createInvoice = asyncHandler(async (req, res) => {
       `INSERT INTO invoices
         (invoice_number, order_id, user_id, customer_name, customer_email,
          billing_line1, billing_line2, billing_city, billing_state, billing_pincode,
-         subtotal, tax, total, status, issued_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'unpaid', ?)`,
+         subtotal, discount_total, tax, total, status, issued_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'unpaid', ?)`,
       [
         invoiceNumber,
         orderId,
@@ -88,6 +91,7 @@ export const createInvoice = asyncHandler(async (req, res) => {
         order.shipping_state,
         order.shipping_pincode,
         order.subtotal,
+        order.discount_total || 0,
         order.tax,
         order.total,
         issuedAt,

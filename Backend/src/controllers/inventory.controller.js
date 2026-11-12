@@ -88,3 +88,23 @@ export const listInventoryLogs = asyncHandler(async (req, res) => {
   );
   res.json(toCamelCaseAll(rows));
 });
+
+export const getStockSettings = asyncHandler(async (req, res) => {
+  const [rows] = await pool.query(
+    "SELECT setting_value FROM store_settings WHERE setting_key = 'stock_management'"
+  );
+  const enabled = rows.length > 0 ? rows[0].setting_value === "1" : false;
+  res.json({ stockManagementEnabled: enabled });
+});
+
+export const updateStockSettings = asyncHandler(async (req, res) => {
+  const { enabled } = req.body;
+  const val = enabled ? "1" : "0";
+  await pool.execute(
+    `INSERT INTO store_settings (setting_key, setting_value)
+     VALUES ('stock_management', ?)
+     ON DUPLICATE KEY UPDATE setting_value = ?`,
+    [val, val]
+  );
+  res.json({ stockManagementEnabled: Boolean(enabled) });
+});

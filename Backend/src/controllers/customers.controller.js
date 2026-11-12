@@ -13,7 +13,7 @@ export const listCustomers = asyncHandler(async (req, res) => {
   // Retrieve customers with aggregated metrics from orders and analytics events
   const [customerRows] = await pool.query(
     `SELECT 
-      u.id, u.name, u.email, u.phone, u.created_at,
+      u.id, u.name, u.email, u.phone, u.customer_type, u.created_at,
       COUNT(DISTINCT CASE WHEN o.status != 'cancelled' THEN o.id END) AS total_orders,
       COALESCE(SUM(CASE WHEN o.status != 'cancelled' THEN o.total ELSE 0 END), 0) AS total_spend,
       COALESCE(AVG(CASE WHEN o.status != 'cancelled' THEN o.total END), 0) AS average_order_value,
@@ -30,7 +30,7 @@ export const listCustomers = asyncHandler(async (req, res) => {
      LEFT JOIN customer_sessions s ON u.id = s.customer_id
      LEFT JOIN analytics_events ev ON u.id = ev.customer_id
      WHERE u.role = 'customer'
-     GROUP BY u.id, u.name, u.email, u.phone, u.created_at
+     GROUP BY u.id, u.name, u.email, u.phone, u.customer_type, u.created_at
      ORDER BY u.created_at DESC`,
   );
 
@@ -506,4 +506,19 @@ export const addAddress = asyncHandler(async (req, res) => {
   res
     .status(201)
     .json({ id: result.insertId, addresses: toCamelCaseAll(addresses) });
+});
+
+/**
+ * Admin: Update customer type (retail / wholesale)
+ */
+export const updateCustomerType = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { customerType } = req.body;
+
+  if (!["retail", "wholesale"].includes(customerType)) {
+    return res.status(400).json({ error: "customerType must be 'retail' or 'wholesale'" });
+  }
+
+  await pool.execute("UPDATE users SET customer_type = ? WHERE id = ?", [customerType, id]);
+  res.json({ success: true, id, customerType });
 });

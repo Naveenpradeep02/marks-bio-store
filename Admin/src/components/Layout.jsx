@@ -16,6 +16,7 @@ import {
   ChevronDownIcon,
   AnalyticsIcon,
   MarketingIcon,
+  OffersIcon,
 } from "./Icons";
 
 const links = [
@@ -29,6 +30,11 @@ const links = [
     to: "/analytics/marketing",
     label: "Marketing Intelligence",
     icon: MarketingIcon,
+  },
+  {
+    to: "/offers",
+    label: "Offer Management",
+    icon: OffersIcon,
   },
   { to: "/products", label: "Products", icon: ProductsIcon },
   { to: "/categories", label: "Categories", icon: CategoriesIcon },

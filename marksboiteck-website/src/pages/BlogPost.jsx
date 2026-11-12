@@ -1,209 +1,341 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import "../styles/blog-1.css";
+import React, { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import BlogOne from "../components/BlogOne";
+import BlogTwo from "../components/BlogTwo";
+import BlogThree from "../components/BlogThree";
+import BlogFour from "../components/BlogFour";
+import BlogFive from "../components/BlogFive";
+import BlogSix from "../components/BlogSix";
+import BlogSeven from "../components/BlogSeven";
+import BlogEight from "../components/BlogEight";
+import BlogNine from "../components/BlogNine";
+import BlogTen from "../components/BlogTen";
+import BlogEleven from "../components/BlogEleven";
+import BlogTwelve from "../components/BlogTwelve";
+import BlogThirteen from "../components/BlogThirteen";
+import BlogFourteen from "../components/BlogFourteen";
+import VisualBlocksRenderer from "../components/VisualBlocksRenderer";
 
 export default function BlogPost() {
   const { id } = useParams();
+  const location = useLocation();
+  const [customPost, setCustomPost] = useState(null);
 
-  if (id === "2") {
+  useEffect(() => {
+    fetch(`http://127.0.0.1:5000/api/blogs/${id}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && (data.content || data.title || data.blocks_json)) {
+          setCustomPost(data);
+        }
+      })
+      .catch(() => {});
+  }, [id]);
+
+  // If blog has custom Visual Page Builder design blocks, render the live Elementor blocks!
+  if (customPost && customPost.blocks_json) {
+    try {
+      const parsedBlocks =
+        typeof customPost.blocks_json === "string"
+          ? JSON.parse(customPost.blocks_json)
+          : customPost.blocks_json;
+      if (Array.isArray(parsedBlocks) && parsedBlocks.length > 0) {
+        return (
+          <main style={{ minHeight: "80vh", background: "#ffffff" }}>
+            <VisualBlocksRenderer blocks={parsedBlocks} />
+          </main>
+        );
+      }
+    } catch (e) {
+      console.warn("Failed to parse blog blocks_json:", e);
+    }
+  }
+
+  const isBlog14 =
+    id === "14" ||
+    id === "tissue-mapper-eliminate-ios-scans-full-arch-case-day-of-surgery" ||
+    location.pathname.includes("blog-14") ||
+    location.pathname.includes("tissue-mapper") ||
+    location.pathname.includes("eliminate-ios");
+
+  const isBlog13 =
+    id === "13" ||
+    id === "tissue-adhesives-in-dentistry" ||
+    location.pathname.includes("blog-13") ||
+    location.pathname.includes("tissue-adhesives") ||
+    location.pathname.includes("cyanoacrylate");
+
+  const isBlog12 =
+    id === "12" ||
+    id === "tmj-pain-management-arthrocentesis-navigation-procedure" ||
+    location.pathname.includes("blog-12") ||
+    location.pathname.includes("arthrocentesis") ||
+    location.pathname.includes("tmj");
+
+  const isBlog11 =
+    id === "11" ||
+    id === "auto-merging-cbct-data-soft-tissue-digital-dentistry" ||
+    location.pathname.includes("blog-11") ||
+    location.pathname.includes("auto-merging") ||
+    location.pathname.includes("soft-tissue");
+
+  const isBlog10 =
+    id === "10" ||
+    id === "evaluating-3d-implant-placement-digital-dentistry-software" ||
+    location.pathname.includes("blog-10") ||
+    location.pathname.includes("evaluating-3d-implant") ||
+    location.pathname.includes("implant-placement");
+
+  const isBlog9 =
+    id === "9" ||
+    id === "tooth-bone-segmentation-ai-dentistry" ||
+    location.pathname.includes("blog-9") ||
+    location.pathname.includes("segmentation") ||
+    location.pathname.includes("artificial-intelligence");
+
+  const isBlog8 =
+    id === "8" ||
+    id === "guided-endodontics-dynamic-navigation-systems" ||
+    location.pathname.includes("blog-8") ||
+    location.pathname.includes("endodontics") ||
+    location.pathname.includes("guided-endo");
+
+  const isBlog7 =
+    id === "7" ||
+    id === "emergence-profile-dental-implant-peek-abutments" ||
+    location.pathname.includes("blog-7") ||
+    location.pathname.includes("emergence-profile") ||
+    location.pathname.includes("peek");
+
+  const isBlog6 =
+    id === "6" ||
+    id === "compactors-expanders-dental-implant-surgery" ||
+    location.pathname.includes("blog-6") ||
+    location.pathname.includes("compactors");
+
+  const isBlog5 =
+    id === "5" ||
+    id === "radiographic-markers-guided-implant-surgery" ||
+    location.pathname.includes("blog-5") ||
+    location.pathname.includes("radiographic-markers");
+
+  const isBlog4 =
+    id === "4" ||
+    id === "passive-fit-implant-prosthesis-digital-technology" ||
+    location.pathname.includes("blog-4") ||
+    location.pathname.includes("passive-fit");
+
+  const isBlog3 =
+    id === "3" ||
+    id === "photogrammetry-full-arch-dental-implants-passivity" ||
+    location.pathname.includes("blog-3") ||
+    location.pathname.includes("photogrammetry");
+
+  const isBlog2 =
+    id === "2" ||
+    id === "dynamic-navigation-precision-implant-surgery" ||
+    location.pathname.includes("blog-2") ||
+    location.pathname.includes("dynamic-navigation");
+
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const handleScroll = () => {
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [id, location.pathname]);
+
+  // Render appropriate article with unified Blog styling
+  if (isBlog14) {
+    return <BlogFourteen scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog13) {
+    return <BlogThirteen scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog12) {
+    return <BlogTwelve scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog11) {
+    return <BlogEleven scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog10) {
+    return <BlogTen scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog9) {
+    return <BlogNine scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog8) {
+    return <BlogEight scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog7) {
+    return <BlogSeven scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog6) {
+    return <BlogSix scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog5) {
+    return <BlogFive scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog4) {
+    return <BlogFour scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog3) {
+    return <BlogThree scrollProgress={scrollProgress} />;
+  }
+
+  if (isBlog2) {
+    return <BlogTwo scrollProgress={scrollProgress} />;
+  }
+
+  // Render Dynamic CMS Blog Post if available
+  if (customPost) {
     return (
-      <main className="blog-post-page">
+      <main className="blog-detail-main" style={{ minHeight: "80vh", background: "#f8fafc", paddingBottom: "4rem" }}>
+        {/* Progress Bar */}
         <div
-          className="blog-detail-container"
           style={{
-            maxWidth: "960px",
-            margin: "40px auto",
-            padding: "0 20px",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: `${scrollProgress}%`,
+            height: "4px",
+            background: "#e11d48",
+            zIndex: 99999,
+            transition: "width 0.1s linear",
+          }}
+        />
+
+        {/* Hero Section */}
+        <section
+          style={{
+            background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
             color: "#fff",
+            padding: "4rem 1.5rem 3rem",
+            position: "relative",
           }}
         >
-          <div
-            className="breadcrumb"
-            style={{ color: "#aaa", marginBottom: "20px" }}
-          >
-            <Link to="/" style={{ color: "#c81616", textDecoration: "none" }}>
-              Home
-            </Link>{" "}
-            »{" "}
-            <Link
-              to="/blog"
-              style={{ color: "#c81616", textDecoration: "none" }}
-            >
-              Blogs
-            </Link>{" "}
-            » Dynamic Navigation: Precision Implant Surgery
-          </div>
+          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", marginBottom: "1rem" }}>
+              <span
+                style={{
+                  background: "#e11d48",
+                  color: "#fff",
+                  padding: "4px 10px",
+                  borderRadius: "4px",
+                  fontSize: "0.75rem",
+                  fontWeight: 800,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                {customPost.category || "Clinical Insight"}
+              </span>
+              {customPost.read_time && (
+                <span style={{ color: "#94a3b8", fontSize: "0.85rem" }}>
+                  ⏱ {customPost.read_time}
+                </span>
+              )}
+            </div>
 
-          <h1
-            className="blog-detail-title"
-            style={{ fontSize: "36px", marginBottom: "25px", color: "#fff" }}
-          >
-            Dynamic Navigation: Precision Implant Surgery
-          </h1>
-
-          <img
-            src="/assets/imgs/blog-2.webp"
-            alt="Dynamic Navigation"
-            className="blog-detail-img"
-            style={{
-              width: "100%",
-              borderRadius: "10px",
-              marginBottom: "30px",
-            }}
-          />
-
-          <div
-            className="blog-detail-content"
-            style={{ lineHeight: "1.8", fontSize: "17px", color: "#ddd" }}
-          >
-            <p>
-              Dynamic Navigation is the most effective means by which to
-              accurately transfer a planned implant position to a patient. In
-              contrast to the inherent inaccuracy of Freehand and Static
-              Navigation, dynamic computer-guided surgery provides real-time
-              optical tracking.
-            </p>
-            <h3
+            <h1
               style={{
-                color: "#c81616",
-                marginTop: "25px",
-                marginBottom: "15px",
+                fontSize: "clamp(1.8rem, 4vw, 2.75rem)",
+                fontWeight: 800,
+                lineHeight: 1.25,
+                margin: "0 0 1.25rem",
+                color: "#ffffff",
               }}
             >
-              Why Dynamic Navigation?
-            </h3>
-            <p>
-              By utilizing motion-tracking stereoscopic cameras and advanced
-              planning software, surgeons can visualize drill positioning and
-              trajectory with sub-millimeter precision on screen while
-              performing the osteotomy.
-            </p>
-            <ul
-              style={{
-                marginLeft: "20px",
-                marginTop: "15px",
-                marginBottom: "20px",
-              }}
-            >
-              <li>Real-time visual guidance on CBCT diagnostics</li>
-              <li>
-                Flexibility to modify plan chairside without waiting for
-                surgical guides
-              </li>
-              <li>Minimal flap incisions and reduced patient recovery times</li>
-            </ul>
+              {customPost.title}
+            </h1>
+
+            {customPost.excerpt && (
+              <p
+                style={{
+                  fontSize: "1.1rem",
+                  color: "#cbd5e1",
+                  lineHeight: 1.6,
+                  margin: "0 0 1.75rem",
+                }}
+              >
+                {customPost.excerpt}
+              </p>
+            )}
+
+            {/* Author Bar */}
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", paddingTop: "1rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+              {customPost.author_avatar && (
+                <img
+                  src={customPost.author_avatar}
+                  alt={customPost.author_name}
+                  style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", border: "2px solid #e11d48" }}
+                />
+              )}
+              <div>
+                <div style={{ fontWeight: 700, color: "#fff", fontSize: "0.95rem" }}>
+                  {customPost.author_name || "Marks Biotech Clinical Team"}
+                </div>
+                <div style={{ color: "#94a3b8", fontSize: "0.8rem" }}>
+                  {customPost.author_title || "Regenerative Solutions"}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* Featured Image */}
+        {customPost.featured_image && (
+          <div style={{ maxWidth: "860px", margin: "-2rem auto 2.5rem", padding: "0 1.5rem" }}>
+            <img
+              src={customPost.featured_image}
+              alt={customPost.featured_image_alt || customPost.title}
+              style={{
+                width: "100%",
+                maxHeight: "440px",
+                objectFit: "cover",
+                borderRadius: "12px",
+                boxShadow: "0 20px 25px -5px rgba(0,0,0,0.2)",
+                display: "block",
+              }}
+            />
+          </div>
+        )}
+
+        {/* Article Body */}
+        <article
+          style={{
+            maxWidth: "860px",
+            margin: "0 auto",
+            padding: "0 1.5rem",
+            fontSize: "1.05rem",
+            lineHeight: 1.8,
+            color: "#334155",
+          }}
+          dangerouslySetInnerHTML={{ __html: customPost.content }}
+        />
       </main>
     );
   }
 
-  // Default to Blog 1: Morse Taper Connection
-  return (
-    <main className="blog-post-page">
-      <div
-        className="blog-detail-container"
-        style={{
-          maxWidth: "960px",
-          margin: "40px auto",
-          padding: "0 20px",
-          color: "#fff",
-        }}
-      >
-        <div
-          className="breadcrumb"
-          style={{ color: "#aaa", marginBottom: "20px" }}
-        >
-          <Link to="/" style={{ color: "#c81616", textDecoration: "none" }}>
-            Home
-          </Link>{" "}
-          »{" "}
-          <Link to="/blog" style={{ color: "#c81616", textDecoration: "none" }}>
-            Blogs
-          </Link>{" "}
-          » Morse Taper Connection
-        </div>
-
-        <h1
-          className="blog-detail-title"
-          style={{ fontSize: "36px", marginBottom: "25px", color: "#fff" }}
-        >
-          Morse Taper Connection
-        </h1>
-
-        <img
-          src="/assets/imgs/blog-1.webp"
-          alt="Morse Taper Connection"
-          className="blog-detail-img"
-          style={{ width: "100%", borderRadius: "10px", marginBottom: "30px" }}
-        />
-
-        <div
-          className="blog-detail-content"
-          style={{ lineHeight: "1.8", fontSize: "17px", color: "#ddd" }}
-        >
-          <p>
-            In 1864 an engineer named Stephen Morse conceptualised the
-            mechanical phenomenon stating that when two conical metal components
-            (female + male) reach a tight contact, these fix one into the other
-            through cold welding. To obtain a real Morse effect, the conical
-            sides of the components must not exceed a 50 overall inclination.
-          </p>
-          <p>
-            In the following years, this mechanism was widely employed in
-            mechanical and industrial fields to create modular components which
-            necessitated a high structural stability.
-          </p>
-
-          <h4
-            style={{
-              color: "#c81616",
-              marginTop: "30px",
-              marginBottom: "15px",
-            }}
-          >
-            Key Advantages:
-          </h4>
-          <ul style={{ marginLeft: "20px", marginBottom: "30px" }}>
-            <li>
-              <b>Cold Welding Seal:</b> The interface between abutment and
-              implant creates a hermetic seal thanks to its extra-tight
-              friction, virtually eliminating micro-gaps and bacterial
-              microleakage.
-            </li>
-            <li>
-              <b>Mechanical Stability:</b> Minimizes micro-movements to
-              safeguard regenerating bone and adjacent peri-implant tissues.
-            </li>
-            <li>
-              <b>Higher Load Bearing:</b> Internal conical connection withstands
-              higher masticatory stresses and prevents screw loosening.
-            </li>
-          </ul>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              alignItems: "center",
-              background: "#1c1c1c",
-              padding: "20px",
-              borderRadius: "10px",
-            }}
-          >
-            <img
-              src="/assets/imgs/blog-1.1.webp"
-              alt="B&B Dental Conexa"
-              style={{ width: "120px", borderRadius: "8px" }}
-            />
-            <p style={{ margin: 0, color: "#ccc" }}>
-              B&amp;B Dental’s CONEXA connection features a cone Morse
-              connection with internal hex indexing, offering accurate placement
-              with reduced trauma for surrounding tissues.
-            </p>
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+  return <BlogOne scrollProgress={scrollProgress} />;
 }

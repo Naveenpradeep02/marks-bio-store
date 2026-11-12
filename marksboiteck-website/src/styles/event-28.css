@@ -1,0 +1,477 @@
+/* ==========================================================================
+   EVENT 28: ICOI - ASEAN CONGRESS 2026
+   Crafting the Future: Human Artistry in a Digital Age
+   Saveetha Dental College, Chennai | July 24-26, 2026
+   Dark cinematic aesthetic matching event page design & reference screenshot
+   ========================================================================== */
+
+.event28-page-main {
+  background-color: #000000;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 110px 0 100px;
+  font-family: "Inter", "Manrope", system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+.event28-container {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Back Link */
+.event28-back-wrap {
+  margin-bottom: 35px;
+}
+
+.event28-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ce2017;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.event28-back-link:hover {
+  color: #ffffff;
+  transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   HERO / OVERVIEW GRID
+   ========================================================================== */
+.event28-hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 50px;
+  padding-bottom: 45px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.event28-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: #8c949d;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.event28-title {
+  font-size: clamp(32px, 4vw, 50px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 0 18px;
+}
+
+.event28-subtitle {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 700;
+  color: #ce2017;
+  line-height: 1.5;
+  margin: 0 0 18px;
+}
+
+.event28-tagline {
+  font-size: 17px;
+  font-weight: 500;
+  color: #e2e8f0;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.event28-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(206, 32, 23, 0.12);
+  border: 1px solid rgba(206, 32, 23, 0.35);
+  color: #ff5247;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 22px;
+}
+
+.event28-desc {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #c4c9ce;
+  margin: 0;
+}
+
+/* Hero Right Banner Image Frame */
+.event28-banner-frame {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  background: #0d0f11;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event28-banner-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(206, 32, 23, 0.2);
+  border-color: rgba(206, 32, 23, 0.45);
+}
+
+.event28-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   EVENT GALLERY & CAROUSEL
+   ========================================================================== */
+.event28-gallery-section {
+  margin-bottom: 60px;
+  padding-bottom: 50px;
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+.event28-section-heading {
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 26px;
+  letter-spacing: -0.02em;
+}
+
+.event28-carousel-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.event28-carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(22, 24, 27, 0.85);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.event28-carousel-btn:hover {
+  background: #ce2017;
+  border-color: #ce2017;
+  box-shadow: 0 0 15px rgba(206, 32, 23, 0.5);
+  transform: scale(1.05);
+}
+
+.event28-carousel-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 10px 4px;
+  width: 100%;
+}
+
+.event28-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.event28-thumb-card {
+  flex: 0 0 260px;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: #111316;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.event28-thumb-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+.event28-thumb-card.active {
+  border-color: #ce2017;
+  box-shadow: 0 0 24px rgba(206, 32, 23, 0.55);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.event28-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==========================================================================
+   TWO-COLUMN EDITORIAL DETAILS SECTION
+   ========================================================================== */
+.event28-content-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+}
+
+/* Left Sidebar: Tags & Share */
+.event28-sidebar {
+  padding-top: 6px;
+}
+
+.event28-sidebar-block {
+  margin-bottom: 35px;
+}
+
+.event28-sidebar-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+  color: #8c949d;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.event28-tags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event28-tag-item {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.event28-share-icons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.event28-share-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.event28-share-icon-btn:hover {
+  background: #ce2017;
+  border-color: #ce2017;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(206, 32, 23, 0.4);
+}
+
+/* Right Main Column Content */
+.event28-main-column {
+  color: #d1d6db;
+}
+
+.event28-main-column h2.event28-article-title {
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 800;
+  color: #ce2017;
+  margin: 0 0 18px;
+  letter-spacing: -0.02em;
+}
+
+.event28-main-column h3.event28-subhead-red {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 800;
+  color: #ce2017;
+  margin: 40px 0 16px;
+  letter-spacing: -0.015em;
+}
+
+.event28-main-column p {
+  font-size: 15.5px;
+  line-height: 1.8;
+  color: #c4c9ce;
+  margin: 0 0 20px;
+}
+
+/* Highlighted Event Fast-Facts Box */
+.event28-facts-card {
+  background: #0d0f12;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid #ce2017;
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin: 24px 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event28-fact-row {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #d8dde2;
+}
+
+.event28-fact-label {
+  color: #ce2017;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+/* Lists */
+.event28-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.event28-bullet-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #c4c9ce;
+}
+
+.event28-bullet-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #ce2017;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* Lightbox Modal */
+.event28-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  animation: event28FadeIn 0.2s ease-out;
+}
+
+@keyframes event28FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.event28-lightbox-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event28-lightbox-img {
+  max-width: 100%;
+  max-height: 82vh;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+}
+
+.event28-lightbox-close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.event28-lightbox-close:hover {
+  color: #ce2017;
+}
+
+/* ==========================================================================
+   RESPONSIVE QUERIES
+   ========================================================================== */
+@media (max-width: 960px) {
+  .event28-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .event28-content-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .event28-sidebar {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 25px;
+  }
+  .event28-tags-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .event28-thumb-card {
+    flex: 0 0 220px;
+    height: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  .event28-page-main {
+    padding-top: 85px;
+  }
+  .event28-title {
+    font-size: 28px;
+  }
+  .event28-subtitle {
+    font-size: 16px;
+  }
+  .event28-section-heading {
+    font-size: 26px;
+  }
+  .event28-carousel-btn {
+    display: none;
+  }
+  .event28-thumb-card {
+    flex: 0 0 180px;
+    height: 130px;
+  }
+}

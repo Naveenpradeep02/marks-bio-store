@@ -151,25 +151,25 @@ export default function Header() {
       external: true,
     },
     {
-      title: "Scientific Evidence & Clinical Studies",
+      title: "Scientific Evidence",
       category: "Resources",
       url: "/scientific-evidence",
       external: false,
     },
     {
-      title: "Education, Workshops & Masterclasses",
+      title: "Education",
       category: "Resources",
       url: "/events",
       external: false,
     },
     {
-      title: "Clinical Blogs & Articles",
+      title: "Blogs",
       category: "Resources",
       url: "/blog",
       external: false,
     },
     {
-      title: "Careers at Marks Biotech",
+      title: "Careers",
       category: "Resources",
       url: "/careers",
       external: false,
@@ -693,17 +693,17 @@ export default function Header() {
                       <ul>
                         <li>
                           <Link to="/events" onClick={closeAllMenus}>
-                            Education &amp; Workshops
+                            Education
                           </Link>
                         </li>
                         <li>
                           <Link to="/blog" onClick={closeAllMenus}>
-                            Clinical Blogs &amp; Articles
+                            Blogs
                           </Link>
                         </li>
                         <li>
                           <Link to="/careers" onClick={closeAllMenus}>
-                            Careers &amp; Opportunities
+                            Careers
                           </Link>
                         </li>
                         <li>
@@ -711,7 +711,7 @@ export default function Header() {
                             to="/scientific-evidence"
                             onClick={closeAllMenus}
                           >
-                            Scientific Evidence &amp; Papers
+                            Scientific Evidence
                           </Link>
                         </li>
                       </ul>

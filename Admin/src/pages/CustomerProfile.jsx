@@ -136,6 +136,31 @@ export default function CustomerProfile() {
             <span className="status-badge badge-blue">
               Customer ID #{customer.id}
             </span>
+            <select
+              value={customer.customerType || "retail"}
+              onChange={async (e) => {
+                try {
+                  await api.patch(`/customers/${customer.id}/type`, { customerType: e.target.value });
+                  fetchCustomer360();
+                } catch (err) {
+                  alert(err.message || "Failed to update customer tier");
+                }
+              }}
+              style={{
+                marginLeft: "0.5rem",
+                padding: "3px 10px",
+                borderRadius: "6px",
+                fontSize: "12px",
+                fontWeight: 600,
+                background: customer.customerType === "wholesale" ? "#eff6ff" : "#f1f5f9",
+                color: customer.customerType === "wholesale" ? "#1d4ed8" : "#475569",
+                border: "1px solid #cbd5e1",
+                cursor: "pointer",
+              }}
+            >
+              <option value="retail">🛒 Retail Tier</option>
+              <option value="wholesale">🏢 Wholesale Tier</option>
+            </select>
           </div>
 
           <div

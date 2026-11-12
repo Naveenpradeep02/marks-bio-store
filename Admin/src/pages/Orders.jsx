@@ -68,10 +68,42 @@ export default function Orders() {
           <tbody>
             {orders.map((o) => (
               <tr key={o.id}>
-                <td>#{o.orderNumber}</td>
+                <td>
+                  <strong>#{o.orderNumber}</strong>
+                  {o.appliedOffers?.length > 0 && (
+                    <div style={{ marginTop: "2px" }}>
+                      {o.appliedOffers.map((ao, idx) => (
+                        <span
+                          key={idx}
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            background: "#ecfdf5",
+                            color: "#059669",
+                            padding: "1px 6px",
+                            borderRadius: "4px",
+                            display: "inline-block",
+                            marginRight: "4px",
+                          }}
+                        >
+                          🏷️ {ao.badge || ao.title}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </td>
                 <td>{o.customerEmail}</td>
-                <td>{o.items.length}</td>
-                <td>₹{o.total}</td>
+                <td>{o.items.length} items</td>
+                <td>
+                  <div>
+                    <strong>₹{Number(o.total).toLocaleString("en-IN")}</strong>
+                  </div>
+                  {Number(o.discountTotal) > 0 && (
+                    <div style={{ fontSize: "11px", color: "#059669", fontWeight: 600 }}>
+                      Saved ₹{Number(o.discountTotal).toLocaleString("en-IN")}
+                    </div>
+                  )}
+                </td>
                 <td>
                   <select value={o.status} onChange={(e) => updateStatus(o.id, e.target.value)}>
                     {STATUSES.map((s) => (

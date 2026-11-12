@@ -66,10 +66,7 @@ export default function Store() {
               <div style={{ padding: "1rem" }}>
                 <h3 style={{ margin: "0 0 0.4rem", fontSize: "1rem" }}>{p.name}</h3>
                 <p style={{ margin: "0 0 0.6rem", fontWeight: 700 }}>₹{p.price}</p>
-                <p style={{ margin: "0 0 0.6rem", fontSize: "0.85rem", color: p.stock > 0 ? "#146c43" : "#b3261e" }}>
-                  {p.stock > 0 ? `In stock (${p.stock})` : "Out of stock"}
-                </p>
-                <button onClick={() => handleAdd(p)} disabled={p.stock <= 0}>
+                <button onClick={() => handleAdd(p)}>
                   {addedId === p.id ? "Added!" : "Add to Cart"}
                 </button>
               </div>

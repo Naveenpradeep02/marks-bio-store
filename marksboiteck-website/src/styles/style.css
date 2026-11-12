@@ -75,6 +75,7 @@ a {
 /* =========================================================================
    STRAUMANN STYLE IMMERSIVE HERO SECTION
    ========================================================================= */
+#hero.straumann-hero,
 .straumann-hero {
   position: relative;
   width: 100%;

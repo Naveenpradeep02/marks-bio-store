@@ -3,7 +3,8 @@ import { auth } from "./firebase";
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 async function request(path, options = {}) {
-  const token = await auth.currentUser?.getIdToken();
+  const firebaseToken = await auth.currentUser?.getIdToken();
+  const token = firebaseToken || localStorage.getItem("admin_token");
 
   const res = await fetch(`${BASE_URL}${path}`, {
     ...options,

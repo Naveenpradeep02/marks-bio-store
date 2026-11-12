@@ -117,17 +117,28 @@ export default function Xenograft() {
       {/* TITANIUM BARRIER */}
       <section className="graft-row">
         <div className="graft-copy">
-          <h2>
-            <span>
-              T-Barrier Titanium is a titanium safety barrier for GBR materials
-            </span>
-          </h2>
-          <ul>
-            <li>Easy to model</li>
-            <li>Biocompatible and safe</li>
-            <li>Easy to cut</li>
-            <li>Easy to apply and fix onto the defected site</li>
-          </ul>
+          <div className="graft-copy-group">
+            <h2>
+              <span>
+                T-Barrier Titanium is a titanium safety barrier for GBR materials
+              </span>
+            </h2>
+            <ul>
+              <li>Easy to model</li>
+              <li>Biocompatible and safe</li>
+              <li>Easy to cut</li>
+              <li>Easy to apply and fix onto the defected site</li>
+            </ul>
+          </div>
+
+          <div className="graft-copy-group">
+            <h2>
+              <span>Membrane sizes</span>
+            </h2>
+            <ul>
+              <li>24×29×0.13mm</li>
+            </ul>
+          </div>
         </div>
         <div className="graft-media">
           <img

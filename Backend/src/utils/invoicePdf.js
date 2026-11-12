@@ -48,14 +48,23 @@ export function renderInvoicePdf(invoice) {
 
     doc.moveTo(50, y + 5).lineTo(545, y + 5).stroke();
     y += 15;
-    doc.text("Subtotal:", 370, y, { width: 70, align: "right" });
+    doc.text("Subtotal:", 350, y, { width: 90, align: "right" });
     doc.text(`Rs. ${invoice.subtotal.toFixed(2)}`, 450, y, { width: 90, align: "right" });
     y += 18;
-    doc.text("Tax (18% GST):", 370, y, { width: 70, align: "right" });
+
+    if (invoice.discountTotal > 0) {
+      doc.fillColor("green");
+      doc.text("Offers & Savings:", 330, y, { width: 110, align: "right" });
+      doc.text(`-Rs. ${invoice.discountTotal.toFixed(2)}`, 450, y, { width: 90, align: "right" });
+      doc.fillColor("black");
+      y += 18;
+    }
+
+    doc.text("Tax (18% GST):", 350, y, { width: 90, align: "right" });
     doc.text(`Rs. ${invoice.tax.toFixed(2)}`, 450, y, { width: 90, align: "right" });
     y += 18;
     doc.font("Helvetica-Bold");
-    doc.text("Total:", 370, y, { width: 70, align: "right" });
+    doc.text("Total:", 350, y, { width: 90, align: "right" });
     doc.text(`Rs. ${invoice.total.toFixed(2)}`, 450, y, { width: 90, align: "right" });
     doc.font("Helvetica");
 
