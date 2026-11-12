@@ -39,7 +39,7 @@ export default function Login() {
           "admin_user",
           JSON.stringify({ email: email.trim(), role: "admin", name: "Mani Krishnan" })
         );
-        window.location.href = "/";
+        window.location.href = import.meta.env.BASE_URL;
         return;
       }
       setError(err.message.replace("Firebase: ", ""));
@@ -91,7 +91,7 @@ export default function Login() {
           type="button"
           onClick={() => {
             localStorage.setItem("admin_token", "dev-admin-token");
-            window.location.href = "/";
+            window.location.href = import.meta.env.BASE_URL;
           }}
           style={{
             width: "100%",
