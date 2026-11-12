@@ -31,7 +31,19 @@ const app = express();
 const configuredOrigins = [
   process.env.CLIENT_ORIGIN,
   process.env.ADMIN_ORIGIN,
+  "https://demo.marksbiotech.in",
+  "https://marksbiotech.com",
+  "https://marksbiotech.in",
 ].filter(Boolean);
+
+// Chrome Private Network Access preflight support (when HTTPS site calls localhost)
+app.use((req, res, next) => {
+  if (req.headers["access-control-request-private-network"]) {
+    res.setHeader("Access-Control-Allow-Private-Network", "true");
+  }
+  next();
+});
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -40,14 +52,20 @@ app.use(
       if (
         !origin ||
         configuredOrigins.includes(origin) ||
-        /^https?:\/\/localhost:\d+$/.test(origin)
+        /^https?:\/\/localhost:\d+$/.test(origin) ||
+        /^https?:\/\/127\.0\.0\.1:\d+$/.test(origin) ||
+        /^https?:\/\/([a-z0-9-]+\.)?marksbiotech\.(in|com)(:\d+)?$/i.test(origin)
       ) {
         return callback(null, true);
       }
       callback(new Error("Not allowed by CORS"));
     },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Private-Network"],
   }),
 );
+app.options("*", cors());
 app.use(express.json());
 app.use("/uploads", express.static(path.resolve(__dirname, "../uploads")));
 app.use("/assets", express.static(path.resolve(__dirname, "../../marksboiteck-website/public/assets")));
